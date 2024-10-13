@@ -4,8 +4,10 @@ import productos.Producto;
 import productos.departamentos.alimentos.*;
 import productos.departamentos.electrodomesticos.*;
 import productos.departamentos.electronica.*;
+import usuario.ListaUsuarios;
+import usuario.Usuario;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) {
 
@@ -41,8 +43,10 @@ public class main {
         System.out.println("-------------------------------------");
         System.out.println("Total: $" + total);
 
-
-
+        // Crear usuarios y registrarlos
+        ListaUsuarios listaU = new ListaUsuarios();
+        listaU.registrar(new Usuario("Paco", "1234", "Francisco", "265152", "Azcapo", 123456789, "Mexico", 1));
+        System.out.println(listaU.crearNotificacion("Mexico"));
     }
 
 }
