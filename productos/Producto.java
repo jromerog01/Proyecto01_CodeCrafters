@@ -27,4 +27,9 @@ public abstract class Producto {
     public String toString() {
         return getNombre() + " - $" + getPrecio();
     }
+
+    // Método para aplicar descuento directamente al producto
+    public void aplicarDescuento(double porcentaje) {
+        this.precio = this.precio * (1 - porcentaje / 100);
+    }
 }

@@ -13,7 +13,7 @@ public class HomeTheater extends DeptoElectronica {
 
     @Override
     public String getNombre() {
-        return producto.getNombre() + ", HomeTheater 5.1";
+        return "HomeTheater 5.1";
     }
 
     @Override

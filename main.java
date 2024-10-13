@@ -9,14 +9,16 @@ public class main {
 
     public static void main(String[] args) {
 
+        String paisCliente = "Brasil";
+
         //Creamos el catalogo
         Catalogo catalogo = new Catalogo();
-        catalogo.crearCatalogo();
+        catalogo.crearCatalogo(paisCliente);
         catalogo.imprimirCatalogo();
-
 
         //Este es el carrito
         Producto carrito = new Carrito();
+
 
         carrito = new ChipsFuegoFlaminHot(carrito);
         carrito = new JackDanielsApple(carrito);

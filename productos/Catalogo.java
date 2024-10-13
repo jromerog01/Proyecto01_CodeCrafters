@@ -3,6 +3,7 @@ package productos;
 import productos.departamentos.alimentos.ChipsFuegoFlaminHot;
 import productos.departamentos.alimentos.JackDanielsApple;
 import productos.departamentos.alimentos.JugoManzanaOrganico;
+import productos.departamentos.alimentos.LifeSaversGummies;
 import productos.departamentos.electrodomesticos.ExtractorJugos;
 import productos.departamentos.electrodomesticos.LicuadoraNinja;
 import productos.departamentos.electrodomesticos.MolinilloEspecias;
@@ -19,26 +20,65 @@ import java.util.Map;
 
 public class Catalogo {
 
-    private ArrayList<Producto> productos;
+    public ArrayList<Producto> productos;
 
     public Catalogo() {
         productos = new ArrayList<>();
     }
 
-    public void crearCatalogo(){
+    public void crearCatalogo(String paisCliente){
         Carrito carrito = new Carrito();
-        productos.add(new ChipsFuegoFlaminHot(carrito));
-        productos.add(new JackDanielsApple(carrito));
-        productos.add(new JugoManzanaOrganico(carrito));
-        productos.add(new LicuadoraNinja(carrito));
-        productos.add(new ExtractorJugos(carrito));
-        productos.add(new LicuadoraNinja(carrito));
-        productos.add(new MolinilloEspecias(carrito));
-        productos.add(new Waflera(carrito));
-        productos.add(new CamaraDigital(carrito));
-        productos.add(new HomeTheater(carrito));
-        productos.add(new IPhone18ProPlusMax(carrito));
-        productos.add(new SmartTV(carrito));
+
+        Producto chipsFuego = new ChipsFuegoFlaminHot(carrito);
+        Producto jackDaniels = new JackDanielsApple(carrito);
+        Producto jugoManzana = new JugoManzanaOrganico(carrito);
+        Producto lifeSavers = new LifeSaversGummies(carrito);
+
+        Producto extractorJugos = new ExtractorJugos(carrito);
+        Producto licuadoraNinja = new LicuadoraNinja(carrito);
+        Producto molinillo = new MolinilloEspecias(carrito);
+        Producto waflera = new Waflera(carrito);
+
+        Producto camaraDigital = new CamaraDigital(carrito);
+        Producto homeTheater = new HomeTheater(carrito);
+        Producto iPhone18ProPlusMax = new IPhone18ProPlusMax(carrito);
+        Producto smartTV = new SmartTV(carrito);
+
+
+        // Aplicar descuentos según el país del cliente
+        switch (paisCliente) {
+            case "USA" -> {
+                camaraDigital.aplicarDescuento(20); // Descuento del 20% en productos electrónicos
+                homeTheater.aplicarDescuento(20);
+                iPhone18ProPlusMax.aplicarDescuento(20);
+                smartTV.aplicarDescuento(20);
+            }
+            case "Mexico" -> {
+                extractorJugos.aplicarDescuento(15); // Descuento del 15% en electrodomésticos
+                licuadoraNinja.aplicarDescuento(15);
+                molinillo.aplicarDescuento(15);
+                waflera.aplicarDescuento(15);
+            }
+            case "Brasil" -> {
+                chipsFuego.aplicarDescuento(10); // Descuento del 10% en productos alimenticios
+                jackDaniels.aplicarDescuento(10);
+                jugoManzana.aplicarDescuento(10);
+                lifeSavers.aplicarDescuento(10);
+            }
+        }
+
+        productos.add(chipsFuego);
+        productos.add(jackDaniels);
+        productos.add(jugoManzana);
+        productos.add(lifeSavers);
+        productos.add(extractorJugos);
+        productos.add(licuadoraNinja);
+        productos.add(molinillo);
+        productos.add(waflera);
+        productos.add(camaraDigital);
+        productos.add(homeTheater);
+        productos.add(iPhone18ProPlusMax);
+        productos.add(smartTV);
 
     }
 
@@ -63,12 +103,5 @@ public class Catalogo {
             }
             System.out.println();  // Línea en blanco entre departamentos
         }
-    }
-
-    public void aplicarDescuento(){
-        Producto carrito = new Carrito();
-        carrito = new JackDanielsApple(carrito);
-        
-
     }
 }
