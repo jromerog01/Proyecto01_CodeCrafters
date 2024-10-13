@@ -1,50 +1,38 @@
 import productos.Carrito;
 import productos.Catalogo;
 import productos.Producto;
-import productos.departamentos.alimentos.*;
-import productos.departamentos.electrodomesticos.*;
-import productos.departamentos.electronica.*;
 
 public class main {
 
     public static void main(String[] args) {
 
-        String paisCliente = "Brasil";
+        // Suponemos que el cliente es de México
+        String paisCliente = "Mexico";
 
-        //Creamos el catalogo
         Catalogo catalogo = new Catalogo();
-        catalogo.crearCatalogo(paisCliente);
-        catalogo.imprimirCatalogo();
+        catalogo.crearCatalogo(paisCliente);  // Crear el catálogo con descuentos según el país
+        catalogo.imprimirCatalogo();  // Imprimir el catálogo
 
-        //Este es el carrito
-        Producto carrito = new Carrito();
+        // Crear el carrito
+        Carrito carrito = new Carrito();
 
+        // Agregar productos del catálogo al carrito
+        Producto licuadora = catalogo.productos.get(5);  // Ejemplo: índice de la licuadora
+        Producto smartTV = catalogo.productos.get(11);  // Ejemplo: índice del SmartTV
+        Producto lifeSavers = catalogo.productos.get(3);
 
-        carrito = new ChipsFuegoFlaminHot(carrito);
-        carrito = new JackDanielsApple(carrito);
-        carrito = new JugoManzanaOrganico(carrito);
-        carrito = new LifeSaversGummies(carrito);
-        carrito = new ExtractorJugos(carrito);
-        carrito = new LicuadoraNinja(carrito);
-        carrito = new MolinilloEspecias(carrito);
-        carrito = new Waflera(carrito);
-        carrito = new CamaraDigital(carrito);
-        carrito = new HomeTheater(carrito);
-        carrito = new IPhone18ProPlusMax(carrito);
-        carrito = new SmartTV(carrito);
+        carrito.agregarProducto(licuadora);
+        carrito.agregarProducto(smartTV);
+        carrito.agregarProducto(lifeSavers);
+        carrito.agregarProducto(smartTV);
 
+        // Imprimir el carrito con los productos seleccionados
+        carrito.imprimirCarrito();
 
-        // Imprimir productos y sus precios individuales
-        System.out.println(carrito);
-
-
-        // Calcular e imprimir el precio total
-        double total = carrito.getPrecio();
-        System.out.println("-------------------------------------");
-        System.out.println("Total: $" + total);
-
-
-
+        // Mostrar el total
+        System.out.println("Total del carrito: $" + carrito.calcularTotal());
     }
 
 }
+
+

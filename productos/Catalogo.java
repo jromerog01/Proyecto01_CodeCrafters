@@ -1,17 +1,9 @@
 package productos;
 
-import productos.departamentos.alimentos.ChipsFuegoFlaminHot;
-import productos.departamentos.alimentos.JackDanielsApple;
-import productos.departamentos.alimentos.JugoManzanaOrganico;
-import productos.departamentos.alimentos.LifeSaversGummies;
-import productos.departamentos.electrodomesticos.ExtractorJugos;
-import productos.departamentos.electrodomesticos.LicuadoraNinja;
-import productos.departamentos.electrodomesticos.MolinilloEspecias;
-import productos.departamentos.electrodomesticos.Waflera;
-import productos.departamentos.electronica.CamaraDigital;
-import productos.departamentos.electronica.HomeTheater;
-import productos.departamentos.electronica.IPhone18ProPlusMax;
-import productos.departamentos.electronica.SmartTV;
+import productos.departamentos.alimentos.*;
+import productos.departamentos.electrodomesticos.*;
+import productos.departamentos.electronica.*;
+import productos.departamentos.DescuentoDecorator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,26 +36,25 @@ public class Catalogo {
         Producto iPhone18ProPlusMax = new IPhone18ProPlusMax(carrito);
         Producto smartTV = new SmartTV(carrito);
 
-
-        // Aplicar descuentos según el país del cliente
+        // Aplicar descuentos utilizando el Decorator
         switch (paisCliente) {
             case "USA" -> {
-                camaraDigital.aplicarDescuento(20); // Descuento del 20% en productos electrónicos
-                homeTheater.aplicarDescuento(20);
-                iPhone18ProPlusMax.aplicarDescuento(20);
-                smartTV.aplicarDescuento(20);
+                camaraDigital = new DescuentoDecorator(camaraDigital, 20); // Descuento del 20% en electrónicos
+                homeTheater = new DescuentoDecorator(homeTheater, 20);
+                iPhone18ProPlusMax = new DescuentoDecorator(iPhone18ProPlusMax, 20);
+                smartTV = new DescuentoDecorator(smartTV, 20);
             }
             case "Mexico" -> {
-                extractorJugos.aplicarDescuento(15); // Descuento del 15% en electrodomésticos
-                licuadoraNinja.aplicarDescuento(15);
-                molinillo.aplicarDescuento(15);
-                waflera.aplicarDescuento(15);
+                extractorJugos = new DescuentoDecorator(extractorJugos, 15); // Descuento del 15% en electrodomésticos
+                licuadoraNinja = new DescuentoDecorator(licuadoraNinja, 15);
+                molinillo = new DescuentoDecorator(molinillo, 15);
+                waflera = new DescuentoDecorator(waflera, 15);
             }
             case "Brasil" -> {
-                chipsFuego.aplicarDescuento(10); // Descuento del 10% en productos alimenticios
-                jackDaniels.aplicarDescuento(10);
-                jugoManzana.aplicarDescuento(10);
-                lifeSavers.aplicarDescuento(10);
+                chipsFuego = new DescuentoDecorator(chipsFuego, 10); // Descuento del 10% en alimentos
+                jackDaniels = new DescuentoDecorator(jackDaniels, 10);
+                jugoManzana = new DescuentoDecorator(jugoManzana, 10);
+                lifeSavers = new DescuentoDecorator(lifeSavers, 10);
             }
         }
 
@@ -79,7 +70,6 @@ public class Catalogo {
         productos.add(homeTheater);
         productos.add(iPhone18ProPlusMax);
         productos.add(smartTV);
-
     }
 
     // Método para agrupar productos por departamento y luego imprimirlos
