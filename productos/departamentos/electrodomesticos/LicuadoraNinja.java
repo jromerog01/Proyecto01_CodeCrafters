@@ -1,38 +1,31 @@
 package productos.departamentos.electrodomesticos;
 
-import productos.Producto;
-
 public class LicuadoraNinja extends DeptoElectrodomesticos {
 
-    private Producto producto;
-
-    public LicuadoraNinja(Producto producto) {
-        this.producto = producto;
+    public LicuadoraNinja() {
+        this.nombre = "Licuadora Ninja";
+        this.departamento = "Electrodomesticos";
         this.precio = 1881;
+        this.codigoBarras = 9461;
     }
 
     @Override
     public String getNombre() {
-        return "Licuadora Ninja";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Electrodomesticos";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 9461;
-    }
-
-    @Override
-    public String toString() {
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }

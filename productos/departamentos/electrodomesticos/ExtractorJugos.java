@@ -1,40 +1,32 @@
 package productos.departamentos.electrodomesticos;
 
-import productos.Producto;
-
 public class ExtractorJugos extends DeptoElectrodomesticos{
 
-    private Producto producto;
-
-    public ExtractorJugos(Producto producto){
-        this.producto = producto;
+    public ExtractorJugos(){
+        this.nombre = "Extractor de Jugos";
+        this.departamento = "Electrodomesticos";
         this.precio = 1999;
+        this.codigoBarras = 1003;
     }
 
     @Override
     public String getNombre() {
-        return "Extractor de Jugos";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-       return "Electrodomesticos";
+       return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 1003;
-    }
-
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }
 

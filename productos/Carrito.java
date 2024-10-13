@@ -2,7 +2,7 @@ package productos;
 
 import java.util.ArrayList;
 
-public class Carrito extends Producto{
+public class Carrito {
 
     private ArrayList<Producto> productos;
 
@@ -15,9 +15,9 @@ public class Carrito extends Producto{
     }
 
     public void imprimirCarrito() {
-        System.out.println("Productos en el carrito:");
+        System.out.println("----------- TICKET DEL CARRITO -----------");
         for (Producto producto : productos) {
-            System.out.println(producto.getNombre() + " - $" + producto.getPrecio());
+            System.out.println("ID: " + producto.getCodigoBarras() + " " + producto.getNombre() + " - $" + producto.getPrecio());
         }
     }
 

@@ -1,42 +1,33 @@
 package productos.departamentos.electronica;
 
-import productos.Producto;
-
 public class CamaraDigital extends DeptoElectronica {
 
-    private Producto producto;
-
-
-    public CamaraDigital(Producto producto){
-        this.producto = producto;
+    public CamaraDigital(){
+        this.nombre = "Camara Digital";
+        this.departamento = "Electronica";
         this.precio = 4000;
+        this.codigoBarras = 1921;
     }
     
     @Override
     public String getNombre() {
-        return "Camara Digital";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Electronica";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
 
     @Override
     public int getCodigoBarras() {
-        return 1921;
-    }
-
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 
 }

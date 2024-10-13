@@ -1,39 +1,31 @@
 package productos.departamentos.electronica;
 
-import productos.Producto;
-
 public class HomeTheater extends DeptoElectronica {
 
-    private Producto producto;
-
-    public HomeTheater(Producto producto) {
-        this.producto = producto;
+    public HomeTheater() {
+        this.nombre = "Home Theater";
+        this.departamento = "Electronica";
         this.precio = 8000;
+        this.codigoBarras = 1112;
     }
 
     @Override
     public String getNombre() {
-        return "HomeTheater 5.1";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Electronica";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 1112;
-    }
-
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }

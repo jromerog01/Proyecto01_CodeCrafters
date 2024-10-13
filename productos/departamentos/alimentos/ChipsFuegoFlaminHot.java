@@ -1,38 +1,31 @@
 package productos.departamentos.alimentos;
 
-import productos.Producto;
-
 public class ChipsFuegoFlaminHot extends DeptoAlimentos {
 
-    private Producto producto;
-
-    public ChipsFuegoFlaminHot(Producto producto) {
-        this.producto = producto;
+    public ChipsFuegoFlaminHot() {
+        this.nombre = "Chips Fuego Flamin Hot";
+        this.departamento = "Alimentos";
         this.precio = 35;
+        this.codigoBarras = 8425;
     }
 
     @Override
     public String getNombre() {
-        return "Chips Fuego Flamin Hot";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Alimentos";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 8425;
-    }
-
-    @Override
-    public String toString() {
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }

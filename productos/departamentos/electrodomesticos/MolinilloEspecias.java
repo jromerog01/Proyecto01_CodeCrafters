@@ -1,43 +1,34 @@
 package productos.departamentos.electrodomesticos;
 
-import productos.Carrito;
-import productos.Producto;
-
 public class MolinilloEspecias extends DeptoElectrodomesticos {
 
-    private Producto producto;
-
-    public MolinilloEspecias(Producto producto){
-        this.producto = producto;
+    public MolinilloEspecias(){
+        this.nombre = "Molinillo de Especias";
+        this.departamento = "Electrodomesticos";
         this.precio = 219;
+        this.codigoBarras = 5736;
+
     }
 
     @Override
     public String getNombre() {
-        return "Molinillo de Especias";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-       return "Electrodomesticos";
+       return this.departamento;
     }
 
     @Override
     public double getPrecio() {
         // Suma el precio del producto decorado al precio del decorador actual
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 5736;
+        return this.codigoBarras;
     }
 
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
-    }
-
-    
 }

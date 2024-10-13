@@ -1,39 +1,31 @@
 package productos.departamentos.electronica;
 
-import productos.Producto;
-
 public class SmartTV extends DeptoElectronica {
 
-    private Producto producto;
-
-    public SmartTV(Producto producto) {
-        this.producto = producto;
+    public SmartTV() {
+        this.nombre = "Smart TV";
+        this.departamento = "Electronica";
         this.precio = 12000;
+        this.codigoBarras = 7482;
     }
 
     @Override
     public String getNombre() {
-        return "SmartTV";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Electronica";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 74826;
-    }
-
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }

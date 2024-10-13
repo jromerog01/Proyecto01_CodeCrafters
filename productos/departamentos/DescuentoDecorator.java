@@ -15,7 +15,7 @@ public class DescuentoDecorator extends ProductosDecorator {
 
     @Override
     public String getNombre() {
-        return producto.getNombre() + " (con descuento del " + descuento + ")";
+        return producto.getNombre() + " (con descuento del " + descuento + "%)";
 
     }
 
