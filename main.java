@@ -6,10 +6,11 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         Carrito carrito = new Carrito();
 
-        System.out.println("Bienvenido a CheemsMart");
+        System.out.println("Biemnvemnimdom a CheemsMart");
         System.out.println("Por favor, selecciona tu país (USA, Mexico, Brasil): ");
         String paisCliente = scanner.nextLine();
 
@@ -35,7 +36,7 @@ public class main {
                 case 1 -> {
                     // Mostrar el catálogo
                     System.out.println("\nCatálogo de productos:");
-                    catalogo.imprimirCatalogo();
+                    //catalogo.imprimirCatalogo();
                 }
                 case 2 -> {
                     // Agregar productos al carrito de manera continua

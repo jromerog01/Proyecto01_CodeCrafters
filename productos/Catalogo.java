@@ -81,7 +81,9 @@ public class Catalogo {
     /**
      * Método para agrupar productos por departamento y luego imprimirlos
      */
-    public void imprimirCatalogo() {
+    public String getCatalogo() {
+        StringBuilder sb = new StringBuilder();
+
         // Crear un Map para agrupar los productos por departamento
         Map<String, List<Producto>> productosPorDepartamento = new HashMap<>();
 
@@ -93,14 +95,18 @@ public class Catalogo {
                     .add(producto);
         }
 
-        // Imprimir los productos agrupados por departamento
+        // Construir el string de los productos agrupados por departamento
         for (String departamento : productosPorDepartamento.keySet()) {
-            System.out.println(departamento); // Imprimir el nombre del departamento
+            sb.append(departamento).append("\n"); // Añadir el nombre del departamento
             for (Producto producto : productosPorDepartamento.get(departamento)) {
-                System.out.println("ID: " + producto.getCodigoBarras() + " |  " + producto.getNombre() + " - $" + producto.getPrecio());
+                sb.append("ID: ").append(producto.getCodigoBarras())
+                  .append(" | ").append(producto.getNombre())
+                  .append(" - $").append(producto.getPrecio()).append("\n");
             }
-            System.out.println();  // Línea en blanco entre departamentos
+            sb.append("\n");  // Línea en blanco entre departamentos
         }
+
+        return sb.toString();
     }
 
     /**

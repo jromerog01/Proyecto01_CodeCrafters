@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ListaUsuarios implements GestionUsuarios{
     
-    ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    public ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     /**
      * Metodo que reistra usuarios.
@@ -20,6 +20,9 @@ public class ListaUsuarios implements GestionUsuarios{
      * @return La notificacion que recibira el usuario.
      */
     public String crearNotificacion(String pais){
+        if(pais == null){
+            return "";
+        }
         switch (pais) {
             case "Mexico":
                 return "Por ser usuario de Mexico tienes descuento en electrodomesticos";

@@ -103,7 +103,7 @@ public class Usuario implements Notificacion{
      * Metodo que recibe notificacion.
      * @param notificacion
      */
-    @Override
+    
     public String recibirNotificacion(String notificacion) {
         return notificacion;
     }
