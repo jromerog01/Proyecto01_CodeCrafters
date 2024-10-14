@@ -15,7 +15,7 @@ public class Carrito {
     }
 
     public void imprimirCarrito() {
-        System.out.println("----------- TICKET DEL CARRITO -----------");
+        System.out.println("----------- TICKET -----------");
         for (Producto producto : productos) {
             System.out.println("ID: " + producto.getCodigoBarras() + " " + producto.getNombre() + " - $" + producto.getPrecio());
         }
