@@ -1,17 +1,9 @@
 package productos;
 
-import productos.departamentos.alimentos.ChipsFuegoFlaminHot;
-import productos.departamentos.alimentos.JackDanielsApple;
-import productos.departamentos.alimentos.JugoManzanaOrganico;
-import productos.departamentos.alimentos.LifeSaversGummies;
-import productos.departamentos.electrodomesticos.ExtractorJugos;
-import productos.departamentos.electrodomesticos.LicuadoraNinja;
-import productos.departamentos.electrodomesticos.MolinilloEspecias;
-import productos.departamentos.electrodomesticos.Waflera;
-import productos.departamentos.electronica.CamaraDigital;
-import productos.departamentos.electronica.HomeTheater;
-import productos.departamentos.electronica.IPhone18ProPlusMax;
-import productos.departamentos.electronica.SmartTV;
+import productos.departamentos.alimentos.*;
+import productos.departamentos.electrodomesticos.*;
+import productos.departamentos.electronica.*;
+import productos.departamentos.DescuentoDecorator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,59 +19,56 @@ public class Catalogo {
     }
 
     public void crearCatalogo(String paisCliente){
-        Carrito carrito = new Carrito();
+        
+        Producto chipsFuego = new ChipsFuegoFlaminHot();
+        Producto jackDaniels = new JackDanielsApple();
+        Producto jugoManzana = new JugoManzanaOrganico();
+        Producto lifeSavers = new LifeSaversGummies();
 
-        Producto chipsFuego = new ChipsFuegoFlaminHot(carrito);
-        Producto jackDaniels = new JackDanielsApple(carrito);
-        Producto jugoManzana = new JugoManzanaOrganico(carrito);
-        Producto lifeSavers = new LifeSaversGummies(carrito);
+        Producto extractorJugos = new ExtractorJugos();
+        Producto licuadoraNinja = new LicuadoraNinja();
+        Producto molinillo = new MolinilloEspecias();
+        Producto waflera = new Waflera();
 
-        Producto extractorJugos = new ExtractorJugos(carrito);
-        Producto licuadoraNinja = new LicuadoraNinja(carrito);
-        Producto molinillo = new MolinilloEspecias(carrito);
-        Producto waflera = new Waflera(carrito);
+        Producto camaraDigital = new CamaraDigital();
+        Producto homeTheater = new HomeTheater();
+        Producto iPhone18ProPlusMax = new IPhone18ProPlusMax();
+        Producto smartTV = new SmartTV();
 
-        Producto camaraDigital = new CamaraDigital(carrito);
-        Producto homeTheater = new HomeTheater(carrito);
-        Producto iPhone18ProPlusMax = new IPhone18ProPlusMax(carrito);
-        Producto smartTV = new SmartTV(carrito);
-
-
-        // Aplicar descuentos según el país del cliente
+        // Aplicar descuentos utilizando el Decorator
         switch (paisCliente) {
             case "USA" -> {
-                camaraDigital.aplicarDescuento(20); // Descuento del 20% en productos electrónicos
-                homeTheater.aplicarDescuento(20);
-                iPhone18ProPlusMax.aplicarDescuento(20);
-                smartTV.aplicarDescuento(20);
+                camaraDigital = new DescuentoDecorator(camaraDigital, 20); // Descuento del 20% en electrónicos
+                homeTheater = new DescuentoDecorator(homeTheater, 20);
+                iPhone18ProPlusMax = new DescuentoDecorator(iPhone18ProPlusMax, 20);
+                smartTV = new DescuentoDecorator(smartTV, 20);
             }
             case "Mexico" -> {
-                extractorJugos.aplicarDescuento(15); // Descuento del 15% en electrodomésticos
-                licuadoraNinja.aplicarDescuento(15);
-                molinillo.aplicarDescuento(15);
-                waflera.aplicarDescuento(15);
+                extractorJugos = new DescuentoDecorator(extractorJugos, 15); // Descuento del 15% en electrodomésticos
+                licuadoraNinja = new DescuentoDecorator(licuadoraNinja, 15);
+                molinillo = new DescuentoDecorator(molinillo, 15);
+                waflera = new DescuentoDecorator(waflera, 15);
             }
             case "Brasil" -> {
-                chipsFuego.aplicarDescuento(10); // Descuento del 10% en productos alimenticios
-                jackDaniels.aplicarDescuento(10);
-                jugoManzana.aplicarDescuento(10);
-                lifeSavers.aplicarDescuento(10);
+                chipsFuego = new DescuentoDecorator(chipsFuego, 10); // Descuento del 10% en alimentos
+                jackDaniels = new DescuentoDecorator(jackDaniels, 10);
+                jugoManzana = new DescuentoDecorator(jugoManzana, 10);
+                lifeSavers = new DescuentoDecorator(lifeSavers, 10);
             }
         }
 
-        productos.add(chipsFuego);
-        productos.add(jackDaniels);
-        productos.add(jugoManzana);
-        productos.add(lifeSavers);
-        productos.add(extractorJugos);
-        productos.add(licuadoraNinja);
-        productos.add(molinillo);
-        productos.add(waflera);
-        productos.add(camaraDigital);
-        productos.add(homeTheater);
-        productos.add(iPhone18ProPlusMax);
-        productos.add(smartTV);
-
+        productos.add(chipsFuego); //0
+        productos.add(jackDaniels); //1
+        productos.add(jugoManzana); //2
+        productos.add(lifeSavers); //3
+        productos.add(extractorJugos); //4
+        productos.add(licuadoraNinja); //5
+        productos.add(molinillo); //6
+        productos.add(waflera); //7
+        productos.add(camaraDigital); //8
+        productos.add(homeTheater); //9
+        productos.add(iPhone18ProPlusMax);//10
+        productos.add(smartTV); //11
     }
 
     // Método para agrupar productos por departamento y luego imprimirlos
@@ -99,9 +88,19 @@ public class Catalogo {
         for (String departamento : productosPorDepartamento.keySet()) {
             System.out.println(departamento); // Imprimir el nombre del departamento
             for (Producto producto : productosPorDepartamento.get(departamento)) {
-                System.out.println(producto.getNombre() + " - $" + producto.getPrecio());
+                System.out.println("ID: " + producto.getCodigoBarras() + " |  " + producto.getNombre() + " - $" + producto.getPrecio());
             }
             System.out.println();  // Línea en blanco entre departamentos
         }
+    }
+
+    // Método para buscar un producto por su código de barras
+    public Producto buscarProductoPorCodigo(int codigoBarras) {
+        for (Producto producto : productos) {
+            if (producto.getCodigoBarras() == codigoBarras) {
+                return producto;
+            }
+        }
+        return null;
     }
 }

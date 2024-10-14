@@ -1,40 +1,32 @@
 package productos.departamentos.alimentos;
 
-import productos.Producto;
-
 public class JugoManzanaOrganico extends DeptoAlimentos {
 
-    private Producto producto;
-
-    public JugoManzanaOrganico(Producto producto) {
-        this.producto = producto;
+    public JugoManzanaOrganico() {
+        this.nombre = "Jugo de Manzana Organico";
+        this.departamento = "Alimentos";
         this.precio = 57;
+        this.codigoBarras = 9482;
     }
 
 
     @Override
     public String getNombre() {
-        return "Jugo de Manzana Organico";
+        return this.nombre;
     }
 
     @Override
     public String getDepartamento() {
-        return "Alimentos";
+        return this.departamento;
     }
 
     @Override
     public double getPrecio() {
-        return producto.getPrecio() + this.precio;
+        return this.precio;
     }
 
     @Override
     public int getCodigoBarras() {
-        return 9482;
-    }
-
-    @Override
-    public String toString() {
-        // Llama recursivamente al toString() del producto anterior para acumular la lista
-        return producto.toString() + "\n" + getNombre() + " - $" + this.precio;
+        return this.codigoBarras;
     }
 }

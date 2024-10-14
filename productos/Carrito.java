@@ -1,18 +1,32 @@
 package productos;
 
-public class Carrito extends Producto{
+import java.util.ArrayList;
 
-    public Carrito(){
-        this.nombre = "Carrito";
+public class Carrito {
+
+    private ArrayList<Producto> productos;
+
+    public Carrito() {
+        productos = new ArrayList<>();
     }
 
-    @Override
-    public String getNombre() {
-        return "Costo por Servicio";
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
     }
 
-    public double getPrecio(){
-        return 0;
+    public void imprimirCarrito() {
+        System.out.println("----------- TICKET DEL CARRITO -----------");
+        for (Producto producto : productos) {
+            System.out.println("ID: " + producto.getCodigoBarras() + " " + producto.getNombre() + " - $" + producto.getPrecio());
+        }
+    }
+
+    public double calcularTotal() {
+        double total = 0;
+        for (Producto producto : productos) {
+            total += producto.getPrecio();
+        }
+        return total;
     }
 
 }
