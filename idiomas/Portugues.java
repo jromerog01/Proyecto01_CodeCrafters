@@ -3,21 +3,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class Espanol implements IdiomaCheemsMart {
+public class Portugues implements IdiomaCheemsMart {
 
     @Override
     public String saludo() {
-        return "Bienvenido a Cheems Mart";
+        return "Bem-vindo ao Cheems Mart";
     }
 
     @Override
     public String despedida() {
-        return "Hasta luego... ";
+        return "Até mais...";
     }
 
     @Override 
     public String agradecimiento(){
-        return "Gracias por su visita a Cheems Mart \n Vuelva pronto...";
+        return "Obrigado por visitar o Cheems Mart \nVolte em breve...";
     }
 
     @Override
@@ -25,37 +25,37 @@ public class Espanol implements IdiomaCheemsMart {
         LocalDate semanaSiguiente = LocalDate.now().plusDays(7);
         DataTimeFormatter formato = DataTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechaEntrega = semanaSiguiente.format(formato);
-        return "La fehca de entrega esta programada para el dia " + fecha;
+        return "A data de entrega está marcada para o dia" + fecha;
     }
 
     @Override
     public String menuInicio(){
-        return "Menu Principal \n" +
+        return "Menu Principal\n" +
                   "1. Ver catálogo \n" +
-                  "2. Agregar productos al carrito \n" +
-                  "3. Ver carrito \n" +
-                  "4. Finalizar Compra \n" +
-                  "5. Salir";
+                  "2. Adicione produtos ao carrinho \n" +
+                  "3. Ver carrinho \n" +
+                  "4. Concluir compra \n" +
+                  "5. Sair";
     }
 
     @Override
     public String mensajeCompra() {
-        return "Ingresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú):";
+        return "Digite o código de barras do produto que deseja adicionar (ou digite 0 para retornar ao menu):";
     }
 
     @Override
     public String mensajeCarrito(String producto){
-        return "Producto agregado al carrito" + producto;
+        return "Produto adicionado ao carrinho" + producto;
     }
 
     @Override
     public String mensajeError(){
-        return "Producto no encontrado. Intenta nuevamente.";
+        return "Produto não encontrado. Tente novamente.";
     }
 
     @Override
     public String mensajeCarrito(double total, Carrito carrito) {
-        System.out.println("Carrito de compras \n");
+        System.out.println("Carrinho de compras \n");
         carrito.imprimirCarrito();
         return  "Total: $" + String.valueOf(total);
     }
@@ -65,11 +65,11 @@ public class Espanol implements IdiomaCheemsMart {
         System.out.println("Finalizando compra...");
         carrito.imprimirCarrito();
         return "Total: $" + String.valueOf(total) +
-                "Gracias por comprar en Cheems Mart";
+               "Obrigado por comprar no Cheems Mart";
     }
 
     @Override
     peublic String mensajeInvalido(){
-        return"Opcion invalida. Intente de nuevo"
+        return "Opção inválida. Tente novamente"
     }
 }
