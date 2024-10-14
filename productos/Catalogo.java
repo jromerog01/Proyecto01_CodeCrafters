@@ -14,10 +14,17 @@ public class Catalogo {
 
     public ArrayList<Producto> productos;
 
+    /**
+     * Metodo constructor de catalogo
+     */
     public Catalogo() {
         productos = new ArrayList<>();
     }
 
+    /**
+     * Metodo que crea un catalogo mostrando los precios segun la region
+     * @param paisCliente El pais del cliente que desea recibir
+     */
     public void crearCatalogo(String paisCliente){
         
         Producto chipsFuego = new ChipsFuegoFlaminHot();
@@ -71,7 +78,9 @@ public class Catalogo {
         productos.add(smartTV); //11
     }
 
-    // Método para agrupar productos por departamento y luego imprimirlos
+    /**
+     * Método para agrupar productos por departamento y luego imprimirlos
+     */
     public void imprimirCatalogo() {
         // Crear un Map para agrupar los productos por departamento
         Map<String, List<Producto>> productosPorDepartamento = new HashMap<>();
@@ -94,7 +103,10 @@ public class Catalogo {
         }
     }
 
-    // Método para buscar un producto por su código de barras
+    /**
+     * Método para buscar un producto por su código de barras
+     * @param codigoBarras El codigo de barras del producto que se desea buscar
+     */
     public Producto buscarProductoPorCodigo(int codigoBarras) {
         for (Producto producto : productos) {
             if (producto.getCodigoBarras() == codigoBarras) {
