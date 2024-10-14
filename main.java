@@ -2,6 +2,7 @@ import productos.Carrito;
 import productos.Catalogo;
 import productos.Producto;
 import java.util.Scanner;
+import idiomas.*;
 
 public class main {
 
@@ -17,16 +18,34 @@ public class main {
         Catalogo catalogo = new Catalogo();
         catalogo.crearCatalogo(paisCliente);
 
+        //
+        IdiomaCheemsMart menuIdioma;
+
+        switch (paisCliente) {
+
+            case "USA" -> {
+                // Menu en Ingles
+                menuIdioma = new Ingles();
+            }
+
+            case "Mexico" -> {
+                // Menu en Español
+                menuIdioma = new Espanol();
+            }
+
+            case "USA" -> {
+                // Menu en Portugues
+                menuIdioma = new Portugues();
+            }
+          default:
+            break;
+        }
+
         boolean continuar = true;
 
         // Interacción principal
         while (continuar) {
-            System.out.println("\nMenú Principal:");
-            System.out.println("1. Ver catálogo");
-            System.out.println("2. Agregar productos al carrito");
-            System.out.println("3. Ver carrito");
-            System.out.println("4. Finalizar compra");
-            System.out.println("5. Salir");
+            System.out.println(menuIdioma.menuInicio());
 
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
@@ -41,7 +60,7 @@ public class main {
                     // Agregar productos al carrito de manera continua
                     boolean agregarProductos = true;
                     while (agregarProductos) {
-                        System.out.print("Ingresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú): ");
+                        System.out.print(menuIdioma.mensajeCompra());
                         int codigoBarras = scanner.nextInt();
 
                         // Regresar al menú si el usuario ingresa 0
@@ -52,33 +71,28 @@ public class main {
 
                             if (productoSeleccionado != null) {
                                 carrito.agregarProducto(productoSeleccionado);
-                                System.out.println("Producto agregado al carrito: " + productoSeleccionado.getNombre());
+                                System.out.println(menuIdioma.mensajeCarrito(productoSeleccionado.getNombre()));
                             } else {
-                                System.out.println("Producto no encontrado. Intenta nuevamente.");
+                                System.out.println(menuIdioma.mensajeError());
                             }
                         }
                     }
                 }
                 case 3 -> {
                     // Mostrar el carrito
-                    System.out.println("\nCarrito de compras:");
-                    carrito.imprimirCarrito();
-                    System.out.println("Total: $" + carrito.calcularTotal());
+                    menuIdioma.mensajeCarrito(carrito.calcularTotal(), carrito);
                 }
                 case 4 -> {
                     // Finalizar compra
-                    System.out.println("\nFinalizando compra...");
-                    carrito.imprimirCarrito();
-                    System.out.println("Total: $" + carrito.calcularTotal());
-                    System.out.println("Gracias por comprar en CheemsMart.");
+                    menuIdioma.mensajeFinalizarCompra(carrito.calcularTotal(), carrito);
                     continuar = false;
                 }
                 case 5 -> {
                     // Salir
-                    System.out.println("Gracias por visitar CheemsMart.");
+                    System.out.println(menuIdioma.agradecimiento());
                     continuar = false;
                 }
-                default -> System.out.println("Opción inválida. Intenta nuevamente.");
+                default -> System.out.println(menuIdioma.mensajeInvalido());
             }
         }
 
