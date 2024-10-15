@@ -1,6 +1,7 @@
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Iterator;
 
 import idiomas.Espanol;
 import idiomas.IdiomaCheemsMart;
@@ -34,7 +35,9 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
 
 
     public String acceder(String usuario, String contrasena){
-        for (Usuario u : lista.listaUsuarios) {
+        Iterator<Usuario> iterador = lista.iterator();
+        while(iterador.hasNext()) {
+            Usuario u = iterador.next();
             if(u.getUsuario().equals(usuario) && u.getContrasena().equals(contrasena)){
                 this.usuario = u;
                 this.paisMenu = this.usuario.getPais();

@@ -1,7 +1,7 @@
 package usuario;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 public class ListaUsuarios implements GestionUsuarios{
     
     public ArrayList<Usuario> listaUsuarios = new ArrayList<>();
@@ -37,5 +37,13 @@ public class ListaUsuarios implements GestionUsuarios{
                 return "";
         }
         
+    }
+
+    /**
+     * Metodo que devuelve el iterador para recorrer la lista
+     * @return Iterador para recorrer la lista de usuarios
+     */
+    public Iterator<Usuario> iterator(){
+        return listaUsuarios.iterator();
     }
 }

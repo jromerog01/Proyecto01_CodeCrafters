@@ -5,10 +5,10 @@ import productos.departamentos.electrodomesticos.DeptoElectrodomesticos;
 import productos.departamentos.electronica.*;
 import productos.departamentos.DescuentoDecorator;
 import productos.departamentos.ProductoFactory;
-import productos.departamentos.electrodomesticos.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +21,14 @@ public class Catalogo {
      */
     public Catalogo() {
         productos = new ArrayList<>();
+    }
+
+    /**
+     * Metodo que devuelve el iterador para recorrer el catalogo.
+     * @return El iterador para recorrer el catalogo
+     */
+    public Iterator<Producto> iterator(){
+        return productos.iterator();
     }
 
     /**
@@ -100,7 +108,9 @@ public class Catalogo {
         Map<String, List<Producto>> productosPorDepartamento = new HashMap<>();
 
         // Agrupar los productos por su departamento
-        for (Producto producto : productos) {
+        Iterator<Producto> iteradorP = this.iterator();
+        while (iteradorP.hasNext()) {
+            Producto producto = iteradorP.next();
             String departamento = producto.getDepartamento();
             productosPorDepartamento
                     .computeIfAbsent(departamento, k -> new ArrayList<>())
@@ -126,11 +136,14 @@ public class Catalogo {
      * @param codigoBarras El codigo de barras del producto que se desea buscar
      */
     public Producto buscarProductoPorCodigo(int codigoBarras) {
-        for (Producto producto : productos) {
+        Iterator<Producto> iterador = this.iterator();
+        while (iterador.hasNext()) {
+            Producto producto = iterador.next();
             if (producto.getCodigoBarras() == codigoBarras) {
                 return producto;
             }
         }
         return null;
     }
+    
 }
