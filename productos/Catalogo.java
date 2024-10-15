@@ -1,9 +1,11 @@
 package productos;
 
 import productos.departamentos.alimentos.*;
-import productos.departamentos.electrodomesticos.*;
+import productos.departamentos.electrodomesticos.DeptoElectrodomesticos;
 import productos.departamentos.electronica.*;
 import productos.departamentos.DescuentoDecorator;
+import productos.departamentos.ProductoFactory;
+import productos.departamentos.electrodomesticos.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,41 +28,51 @@ public class Catalogo {
      * @param paisCliente El pais del cliente que desea recibir
      */
     public void crearCatalogo(String paisCliente){
+        productos.clear();
         
-        Producto chipsFuego = new ChipsFuegoFlaminHot();
-        Producto jackDaniels = new JackDanielsApple();
-        Producto jugoManzana = new JugoManzanaOrganico();
-        Producto lifeSavers = new LifeSaversGummies();
+        // Crear fábricas para cada tipo de producto
+        ProductoFactory fabricaElectronica = new DeptoElectronica();
+        ProductoFactory fabricaAlimentos = new DeptoAlimentos();
+        ProductoFactory fabricaElectrodomesticos = new DeptoElectrodomesticos();
 
-        Producto extractorJugos = new ExtractorJugos();
-        Producto licuadoraNinja = new LicuadoraNinja();
-        Producto molinillo = new MolinilloEspecias();
-        Producto waflera = new Waflera();
+        // Crear productos usando las fábricas
+        Producto camaraDigital = fabricaElectronica.crearProducto("CamaraDigital");
+        Producto homeTheater = fabricaElectronica.crearProducto("HomeTheater");
+        Producto iPhone18ProPlusMax = fabricaElectronica.crearProducto("IPhone18ProPlusMax");
+        Producto smartTV = fabricaElectronica.crearProducto("SmartTV");
 
-        Producto camaraDigital = new CamaraDigital();
-        Producto homeTheater = new HomeTheater();
-        Producto iPhone18ProPlusMax = new IPhone18ProPlusMax();
-        Producto smartTV = new SmartTV();
+        Producto extractorJugos = fabricaElectrodomesticos.crearProducto("ExtractorJugos");
+        Producto licuadoraNinja = fabricaElectrodomesticos.crearProducto("LicuadoraNinja");
+        Producto molinillo = fabricaElectrodomesticos.crearProducto("MolinilloEspecias");
+        Producto waflera = fabricaElectrodomesticos.crearProducto("Waflera");
+        
+        Producto chipsFuego = fabricaAlimentos.crearProducto("ChipsFuegoFlaminHot");
+        Producto jackDaniels = fabricaAlimentos.crearProducto("JackDanielsApple");
+        Producto jugoManzana = fabricaAlimentos.crearProducto("JugoManzanaOrganico");
+        Producto lifeSavers = fabricaAlimentos.crearProducto("LifeSaversGummies");
+
 
         // Aplicar descuentos utilizando el Decorator
-        switch (paisCliente) {
-            case "USA" -> {
-                camaraDigital = new DescuentoDecorator(camaraDigital, 20); // Descuento del 20% en electrónicos
-                homeTheater = new DescuentoDecorator(homeTheater, 20);
-                iPhone18ProPlusMax = new DescuentoDecorator(iPhone18ProPlusMax, 20);
-                smartTV = new DescuentoDecorator(smartTV, 20);
-            }
-            case "Mexico" -> {
-                extractorJugos = new DescuentoDecorator(extractorJugos, 15); // Descuento del 15% en electrodomésticos
-                licuadoraNinja = new DescuentoDecorator(licuadoraNinja, 15);
-                molinillo = new DescuentoDecorator(molinillo, 15);
-                waflera = new DescuentoDecorator(waflera, 15);
-            }
-            case "Brasil" -> {
-                chipsFuego = new DescuentoDecorator(chipsFuego, 10); // Descuento del 10% en alimentos
-                jackDaniels = new DescuentoDecorator(jackDaniels, 10);
-                jugoManzana = new DescuentoDecorator(jugoManzana, 10);
-                lifeSavers = new DescuentoDecorator(lifeSavers, 10);
+        if(paisCliente != null){
+            switch (paisCliente) {
+                case "USA" -> {
+                    camaraDigital = new DescuentoDecorator(camaraDigital, 20); // Descuento del 20% en electrónicos
+                    homeTheater = new DescuentoDecorator(homeTheater, 20);
+                    iPhone18ProPlusMax = new DescuentoDecorator(iPhone18ProPlusMax, 20);
+                    smartTV = new DescuentoDecorator(smartTV, 20);
+                }
+                case "Mexico" -> {
+                    extractorJugos = new DescuentoDecorator(extractorJugos, 15); // Descuento del 15% en electrodomésticos
+                    licuadoraNinja = new DescuentoDecorator(licuadoraNinja, 15);
+                    molinillo = new DescuentoDecorator(molinillo, 15);
+                    waflera = new DescuentoDecorator(waflera, 15);
+                }
+                case "Brasil" -> {
+                    chipsFuego = new DescuentoDecorator(chipsFuego, 10); // Descuento del 10% en alimentos
+                    jackDaniels = new DescuentoDecorator(jackDaniels, 10);
+                    jugoManzana = new DescuentoDecorator(jugoManzana, 10);
+                    lifeSavers = new DescuentoDecorator(lifeSavers, 10);
+                }
             }
         }
 

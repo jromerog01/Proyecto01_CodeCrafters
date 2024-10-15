@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class main {
 
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -15,6 +16,7 @@ public class main {
         String paisCliente = scanner.nextLine();
 
         // Crear el catálogo según el país del cliente
+        
         Catalogo catalogo = new Catalogo();
         catalogo.crearCatalogo(paisCliente);
 

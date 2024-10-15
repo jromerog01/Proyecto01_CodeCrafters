@@ -24,11 +24,15 @@ public class Carrito {
     /**
      * Metodo que imprime todos los productos agregados al carrito
      */
-    public void imprimirCarrito() {
-        System.out.println("----------- TICKET DEL CARRITO -----------");
+    public String imprimirCarrito() {
+        StringBuilder ticket = new StringBuilder();
+        ticket.append("----------- TICKET DEL CARRITO -----------\n");
         for (Producto producto : productos) {
-            System.out.println("ID: " + producto.getCodigoBarras() + " " + producto.getNombre() + " - $" + producto.getPrecio());
+            ticket.append("ID: ").append(producto.getCodigoBarras())
+                  .append(" ").append(producto.getNombre())
+                  .append(" - $").append(producto.getPrecio()).append("\n");
         }
+        return ticket.toString();
     }
 
     /**
@@ -42,5 +46,4 @@ public class Carrito {
         }
         return total;
     }
-
 }

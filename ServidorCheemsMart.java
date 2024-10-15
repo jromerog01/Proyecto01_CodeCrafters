@@ -1,6 +1,11 @@
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import idiomas.Espanol;
+import idiomas.IdiomaCheemsMart;
+// import idiomas.Ingles;
+// import idiomas.Portugues;
 import productos.*;
 
 import usuario.ListaUsuarios;
@@ -10,13 +15,17 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
 
     private static final long serialVersionUID = 1L;
     Usuario usuario;
-    String paisDescuento, paisUsuario;
+    String paisDescuento, paisUsuario, paisMenu;
     ListaUsuarios lista;
     Catalogo catalogo; 
+    Carrito carrito;
+    IdiomaCheemsMart menuIdioma; 
 
     public ServidorCheemsMart() throws RemoteException{
         this.paisDescuento = crearDescuento();
         this.paisUsuario = null;
+        this.paisMenu = null;
+        this.carrito = new Carrito();
         this.catalogo = new Catalogo();
         this.lista = new ListaUsuarios();
         lista.registrar(new Usuario("paco", "1234", "Francisco", "1234567890", "Tapo", 123, "Mexico", 1));
@@ -24,18 +33,24 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     }
 
 
-    public String hola(){
-        return "Hola mundo";
-    }
-
     public String acceder(String usuario, String contrasena){
         for (Usuario u : lista.listaUsuarios) {
             if(u.getUsuario().equals(usuario) && u.getContrasena().equals(contrasena)){
                 this.usuario = u;
+                this.paisMenu = this.usuario.getPais();
                 if(this.usuario.getPais().equals(this.paisDescuento)){
                     this.paisUsuario = this.usuario.getPais();
                 }
-                return "\nBienvenido " + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario));
+                if (this.paisMenu.equals("Mexico")) {
+                    this.menuIdioma = new Espanol();
+                }
+                // if(this.paisMenu.equals("USA")) {
+                //     this.menuIdioma = new Ingles();                  
+                // }
+                // else {
+                //     this.menuIdioma = new Portugues();
+                // }
+                return this.menuIdioma.saludo() + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario) + "\n" + cheems);
             }
         }
         return "Usuario y/o Contrasena incorrecto";
@@ -54,36 +69,91 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
             default:
                 return "";
         }
-
-        
     }   
 
     public String miniMenu(){
-        return "Menú de CheemsMart: \n" +
-                "1. Ver catálogo \n" + 
-                "2. Realizar una compra \n" +
-                "3. Salir";
+        return menuIdioma.menuInicio();
     }
 
-    public String inputMiniMenu(int opcion){
-        switch (opcion) {
-            case 1:
-                this.catalogo.crearCatalogo(this.paisUsuario);
-                return catalogo.getCatalogo();
-            default:
-                break;
-        }
-        return "";
+    public String verCatalogo(){
+        this.catalogo.crearCatalogo(this.paisUsuario);
+        return this.catalogo.getCatalogo();
     }
 
     
+    public String mensajeCarrito1(){
+        // Falta String template
+        return "\nIngresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú): "; 
+    }
 
+    public String agregarCarrito(int codigoBarras) {
+        Producto productoSeleccionado = catalogo.buscarProductoPorCodigo(codigoBarras);
+        
+        if (productoSeleccionado != null) {
+            carrito.agregarProducto(productoSeleccionado);
+            return "Producto agregado al carrito: " + productoSeleccionado.getNombre();
+        } else {
+            return "Producto no encontrado. Intenta nuevamente.";
+        }
+    }
 
+    public String verCarrito(){
+        return carrito.imprimirCarrito() + "\nTOTAL: $" + carrito.calcularTotal() +"\n";
+    }
 
+    public boolean autentificacion(int nCuenta){
+        if(nCuenta == this.usuario.getCuentaBancaria()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String realizarCobro(){
+        if(this.usuario.getDinero() < carrito.calcularTotal()){
+            carrito = new Carrito();
+            // Falta template
+            return "El carrito excede tu presupuesto se cancela la compra";
+        }
+        this.usuario.cobrar(carrito.calcularTotal());
+        String ticket = verCarrito();
+        carrito = new Carrito();
+        return menuMensajes(2) + "\n" + ticket;
+    }
+
+    public String menuMensajes(int m){
+        String mensaje = "";
+        switch (m) {
+            case 1:
+                mensaje = menuIdioma.saludo();
+                break;
+            case 2:
+                mensaje = menuIdioma.agradecimiento();
+                break;
+            case 3:
+                mensaje = menuIdioma.fechaEntrega();
+                break;
+            case 4:
+                mensaje = menuIdioma.mensajeCompra();
+                break;
+            case 5:
+                mensaje = menuIdioma.mensajeError();
+                break;
+            case 6:
+                mensaje = menuIdioma.mensajeFinalizarCompra();
+                break;
+            case 7:
+                mensaje = menuIdioma.mensajeInvalido();
+                break;
+            case 8:
+                mensaje = menuIdioma.despedida();
+                break;
+        }
+        return mensaje;
+    }
 
 
     public static void main(String[] args) {
-        
         try {
             // Crear una instancia del servidor e iniciar el registro RMI
             CheemsMartRemote servidor = new ServidorCheemsMart();
@@ -92,6 +162,30 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
             e.printStackTrace();
         }
     }
+
+    String cheems = "⠀⠀⠀⠀⠀    ⢸⣳⠦⢖⣒⢲⣲⡦⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⡴⢻⣦⡲⠤⡀⠹⡋⢷⡇⣿⡷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⢼⢠⣿⡟⠃⢀⣠⡄⠱⠀⣿⣿⠛⢻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠠⣿⣿⣛⡀⠚⠟⠛⠁⠀⠀⠙⠈⣧⣰⣽⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⣠⣾⣿⡟⠏⠀⠀⠀⠀⠀⠀⡀⠀⣸⡟⢃⠼⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⢰⣿⣿⡿⢆⣀⢠⡶⠀⠀⠀⣠⠆⠐⠁⠀⠃⢀⣼⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠈⠛⠳⡾⡾⠛⠀⠀⠀⡎⠁⠀⠀⠀⡀⠀⠈⠁⠀⠳⡀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⢣⡀⠀⣠⠖⠁⠀⠀⠀⠀⢠⡟⢦⡀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠈⠣⠊⠁⠀⠀⠀⠀⠀⢠⠟⠇⢀⣿⣄⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⡾⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠴⠀⠃⠀⠀⠀⢼⡏⠘⢇⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⢠⣇⡀⠀⠀⠀⠀⠀⢀⠤⠒⠁⠀⢀⡄⠀⠀⠀⢰⠊⠀⠀⣾⡄⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠸⡿⢤⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⡾⠂⠀⠀⠘⠉⠀⠀⣴⢻⢷⡀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⢿⠬⠑⠤⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⢀⠀⠀⠐⠃⢘⣿⣷⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇⠀⠀⠀⠀⠀⠀⠀⡘⠁⡀⠀⠀⠀⢠⡟⠀⠀⠀⠟⣈⣻⣿⡇\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⣻⡇⠀⠀⣸⡁⠀⠀⠀⢷⣸⠀⠀⠀⠀⣯⠀⣄⣫⣤⣺⣿⣿⡿⠀\n" + //
+                "⠀⠀⠀⠀⠀⣀⠤⠚⣹⡂⠀⢰⣿⣿⣦⠤⠤⠾⡟⠀⠀⠀⣼⣿⣧⣿⣿⣿⣿⣿⠟⠁⠀\n" + //
+                "⢀⣠⠒⠋⠉⢁⣠⠴⣻⠁⢠⣼⠛⠁⠀⠀⠀⠀⣷⠀⠀⢠⣿⣿⣿⣿⣿⣿⠟⠉⠀⠀⠀\n" + //
+                "⠈⠛⠛⠒⠉⠉⣀⢤⠃⢀⣿⠷⠴⠤⣄⣀⡀⠀⡿⠀⢀⣾⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⣠⠤⠒⠉⡠⠃⠀⢨⠏⠀⠀⠀⠀⠀⠉⠉⡇⠀⢸⡟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠈⠛⠧⣶⠟⢠⠀⣠⠋⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⢸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠿⢴⡷⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⡄⢀⡀⢸⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣇⣸⡥⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
 
     
 }

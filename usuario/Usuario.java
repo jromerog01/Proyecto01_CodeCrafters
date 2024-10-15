@@ -10,6 +10,7 @@ public class Usuario implements Notificacion{
     private int cuentaBancaria;
     private String pais;
     private int id;
+    private double dinero;
 
     /**
      * Metodo constructor.
@@ -33,6 +34,7 @@ public class Usuario implements Notificacion{
         this.cuentaBancaria = cuentaBancaria;
         this.pais =pais;
         this.id = id;
+        this.dinero = 30000;
     }
 
     /**
@@ -106,5 +108,20 @@ public class Usuario implements Notificacion{
     
     public String recibirNotificacion(String notificacion) {
         return notificacion;
+    }
+
+    /**
+     * Metodo que devuelve el dinero del usuario
+     */
+    public double getDinero(){
+        return dinero;
+    }
+
+    /**
+     * Metodo que realiza el cobro de compra
+     * @param gasto El total que va a gastar el usuario.
+     */
+    public void cobrar(double gasto){
+        dinero = dinero - gasto;
     }
 }
