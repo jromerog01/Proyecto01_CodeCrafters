@@ -56,8 +56,12 @@ public class EntradaUsuario  {
         }
     }
 
-    // Métodos existentes de conexión con el servidor:
-
+    /**
+     * Metodo que valida si el usuario esta registrado.
+     * @param usuario Nombre de usuario.
+     * @param contrasena Contrasena que permite el acceso del usuario.
+     * @return True si el usuario esta gusrado, False de lo contrario.
+     */
     public static boolean acceder(String usuario, String contrasena) {
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -71,6 +75,9 @@ public class EntradaUsuario  {
         }
     }
 
+    /**
+     * Metodo que imprime el menu de inicio de opciones del cliente
+     */
     public static void miniMenu() {
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -81,6 +88,9 @@ public class EntradaUsuario  {
         }
     }
 
+    /**
+     * Metodo que imprime el catalogo.
+     */
     public static void verCatalogo() {
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -91,6 +101,10 @@ public class EntradaUsuario  {
         }
     }
 
+    /**
+     * Metodo que agrega productos al carriro
+     * @param codigoBarras El codigo de barras del producto que deseamos anadir al carrito.
+     */
     public static void agregarCarrito(int codigoBarras) {
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -101,6 +115,9 @@ public class EntradaUsuario  {
         }
     }
 
+    /**
+     * Metodo que imprime el carrito guardado.
+     */
     public static void verCarrito() {
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -158,6 +175,9 @@ public class EntradaUsuario  {
         }        
     }
 
+    /**
+     * Metodo que realiza el cobro en el servidor.
+     */
     public static void realizarCobro(){
         try {
             CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
