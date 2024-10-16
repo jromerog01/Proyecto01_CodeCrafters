@@ -166,7 +166,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
      * @param m El numero del mensaje que deseamos acceder
      * @return El mensaje solicitado
      */
-    public String menuMensajes(int m){
+    public String menuMensajes(int m) {
         String mensaje = "";
         switch (m) {
             case 1:
@@ -200,10 +200,21 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 mensaje = menuIdioma.solicitarNCuenta();
                 break;
             case 11:
-                mensaje = menuIdioma.nCuentaIncorrecto(); 
+                mensaje = menuIdioma.nCuentaIncorrecto();
+                break;
+            case 12:
+                mensaje = menuIdioma.intentosRestantes(); // Mensaje de intentos restantes, aquí puedes pasar el número de intentos
+                break;
+            case 13:
+                mensaje = menuIdioma.sesionCerrada(); // Mensaje de sesión cerrada
+                break;
+            default:
+                mensaje = menuIdioma.mensajeInvalido();
+                break;
         }
         return mensaje;
     }
+    
 
 
     public static void main(String[] args) {
@@ -240,29 +251,32 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⡄⢀⡀⢸⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣇⣸⡥⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
 
-                String bienvenido = 
-                "______ _____ _____ _   _ _   _ _____ _   _ ___________ _____" + "\n" +
-                "| ___ \\_   _|  ___| \\ | | | | |  ___| \\ | |_   _|  _  \\  _  |" + "\n" + 
-                "| |_/ / | | | |__ |  \\| | | | | |__ |  \\| | | | | | | | | | |" + "\n" +
-                "| ___ \\ | | |  __|| . ` | | | |  __|| . ` | | | | | | | | | |" + "\n" +
-                " | |_/ /_| |_| |___| |\\ \\ \\_/ / |___| |\\  |_| |_| |/ /\\ \\_/ /" + "\n" +
-                "\\____/ \\___/\\____/\\_| \\_/\\___/\\____/\\_| \\_/\\___/|___/  \\___/ ";
+        String bienvenido = 
+        "______ _____ _____ _   _ _   _ _____ _   _ ___________ _____" + "\n" +
+        "| ___ \\_   _|  ___| \\ | | | | |  ___| \\ | |_   _|  _  \\  _  |" + "\n" + 
+        "| |_/ / | | | |__ |  \\| | | | | |__ |  \\| | | | | | | | | | |" + "\n" +
+        "| ___ \\ | | |  __|| . ` | | | |  __|| . ` | | | | | | | | | |" + "\n" +
+        " | |_/ /_| |_| |___| |\\ \\ \\_/ / |___| |\\  |_| |_| |/ /\\ \\_/ /" + "\n" +
+        "\\____/ \\___/\\____/\\_| \\_/\\___/\\____/\\_| \\_/\\___/|___/  \\___/ ";
 
-                String a = 
-                 "  ___ " + "\n" + 
-               " / _ \\ " + "\n" +
-               "/ /_\\ \\" + "\n" +
-               "|  _  |" + "\n" +
-               "| | | |" + "\n" +
-               "\\_| |_/";
-               
-               String cheemMart = 
-                " _____  _   _  _____ ________  ___ ________  ___  ___  ______ _____ " + "\n" +
-               "/  __ \\| | | ||  ___|  ___|  \\/  |/  ___|  \\/  | / _ \\ | ___ \\_   _| " + "\n" + 
-               "| /  \\/| |_| || |__ | |__ | .  . |\\ `--.| .  . |/ /_\\ \\| |_/ / | | " + "\n" +  
-               "| |    |  _  ||  __||  __|| |\\/| | `--. \\ |\\/| ||  _  ||    /  | | " + "\n" +  
-               "| \\__/\\| | | || |___| |___| |  | |/\\__/ / |  | || | | || |\\ \\  | | " + "\n" +  
-                "\\____/\\_| |_/\\____/\\____/\\_|  |_/\\____/\\_|  |_/\\_| |_/\\_| \\_\\| \\_/ ";
+        String a = 
+            "  ___ " + "\n" + 
+        " / _ \\ " + "\n" +
+        "/ /_\\ \\" + "\n" +
+        "|  _  |" + "\n" +
+        "| | | |" + "\n" +
+        "\\_| |_/";
+        
+        String cheemMart = 
+        " _____  _   _  _____ ________  ___ ________  ___  ___  ______ _____ " + "\n" +
+        "/  __ \\| | | ||  ___|  ___|  \\/  |/  ___|  \\/  | / _ \\ | ___ \\_   _| " + "\n" + 
+        "| /  \\/| |_| || |__ | |__ | .  . |\\ `--.| .  . |/ /_\\ \\| |_/ / | | " + "\n" +  
+        "| |    |  _  ||  __||  __|| |\\/| | `--. \\ |\\/| ||  _  ||    /  | | " + "\n" +  
+        "| \\__/\\| | | || |___| |___| |  | |/\\__/ / |  | || | | || |\\ \\  | | " + "\n" +  
+        "\\____/\\_| |_/\\____/\\____/\\_|  |_/\\____/\\_|  |_/\\_| |_/\\_| \\_\\| \\_/ ";
+
+
+            
                                                                                    
                                                                                    
                                 

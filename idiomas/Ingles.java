@@ -139,4 +139,15 @@ public class Ingles implements IdiomaCheemsMart {
     public String nCuentaIncorrecto() {
         return "Incorrect accoun number";
     }
+
+    @Override
+    public String intentosRestantes() {
+        return "Incorrect account number. You only have 3 attempts";
+    }
+
+    @Override
+    public String sesionCerrada() {
+        return "You have reached the limit of attempts. Closing the program...";
+    }
+
 }

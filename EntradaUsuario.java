@@ -50,7 +50,7 @@ public class EntradaUsuario  {
                     }
                 }
             } else {
-                System.out.println("\nUsuario o contraseña incorrectos. Intenta nuevamente.");
+                System.out.println("\nUsuario o contraseña incorrectos. Intenta nuevamente. \n\n" + bonk());
             }
             System.out.println("\nDesea salir del programa? s/N");
             if(scanner.nextLine().equals("s")){
@@ -141,7 +141,7 @@ public class EntradaUsuario  {
     public static void realizarCompra(Scanner scanner) throws RemoteException, MalformedURLException, NotBoundException {
         verCatalogo(); // Mostrar el catálogo
         String mensajeError = "";
-
+    
         while (true) {
             try {
                 CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
@@ -150,36 +150,47 @@ public class EntradaUsuario  {
                 mensajeError = cheems.menuMensajes(5);
                 System.out.print(mensaje);
                 int codigoBarras = Integer.parseInt(scanner.nextLine());
-
-            if (codigoBarras == 0) {
-                // Salir del ciclo si el usuario ingresa 0
-                break;
-            }
-
-            if(codigoBarras == 1){
-                mensaje = cheems.menuMensajes(10);
-                System.out.println(mensaje);
-                int nCuenta = Integer.parseInt(scanner.nextLine());
-                if(cheems.autentificacion(nCuenta)){
-                    realizarCobro();
-                }else{
-                    mensaje = cheems.menuMensajes(11);
-                    System.out.println(mensaje);
+    
+                if (codigoBarras == 0) {
+                    // Salir del ciclo si el usuario ingresa 0
+                    break;
                 }
-                break;
-            }
-
-            
-
-            // Agregar producto al carrito
-            agregarCarrito(codigoBarras);
+    
+                if (codigoBarras == 1) {
+                    mensaje = cheems.menuMensajes(10); // Solicitar número de cuenta
+                    System.out.println(mensaje);
+    
+                    // Manejar intentos para autenticar la cuenta bancaria
+                    int intentosRestantes = 3;
+                    boolean autenticado = false;
+                    while (intentosRestantes > 0 && !autenticado) {
+                        System.out.print(cheems.menuMensajes(10)); // Solicitar nuevamente el número de cuenta
+                        int nCuenta = Integer.parseInt(scanner.nextLine());
+                        if (cheems.autentificacion(nCuenta)) {
+                            autenticado = true;
+                            realizarCobro(); // Realizar el cobro si la autenticación es exitosa
+                        } else {
+                            intentosRestantes--;
+                            if (intentosRestantes > 0) {
+                                System.out.println(cheems.menuMensajes(12)); // Mostrar intentos restantes
+                            } else {
+                                System.out.println(cheems.menuMensajes(13) + "\n\n" + bonk()); // Mostrar que se cerró la sesión
+                                System.exit(0); // Cerrar el programa
+                            }
+                        }
+                    }
+                    break;
+                }
+    
+                // Agregar producto al carrito
+                agregarCarrito(codigoBarras);
             } catch (NumberFormatException e) {
-                System.out.println(mensajeError);
-
-            
+                System.out.println(mensajeError + "\n\n" + bonk());
             }
-        }        
+        }
     }
+    
+    
 
     /**
      * Metodo que realiza el cobro en el servidor.
@@ -192,6 +203,30 @@ public class EntradaUsuario  {
             e.printStackTrace();
         }
     }
+
+    public static String bonk(){
+        String bonk = 
+        "⠀⠀⠀⠀⠀⠀⢀⣁⣤⣶⣶⡒⠒⠲⠾⣭⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+        "⠀⠀⠀⠀⠀⠀⣿⡀⣸⠟⠛⠃⠀⣀⣀⠈⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠀⠀⠀⠀⠀⠀⠀\n" +
+        "⠀⠀⠀⡠⠂⢠⠏⠀⠉⠀⠀⠀⠰⣿⠟⠀⠙⢧⡀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢀⢀⡀⣼⣧⡾⠃⠀⠀⠀⠀⠀\n" +
+        "⢀⠔⠀⣠⠔⠁⠀⠀⠀⠀⠀⠀⠀⠰⢄⡠⣶⢾⣽⡆⠀⠀⠀⠀⠄⢡⡀⢰⣾⣿⡀⠈⠵⠟⠛⠀⠀⠀⠀⠀\n" +
+        "⠀⣠⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡟⠋⠉⠀⠀⠀⠀⣰⢦⣼⡷⣼⡏⢯⢉⣡⠖⠋⣩⡇⠀⠀⠀⠀\n" +
+        "⣰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢺⣿⡄⣿⡄⣿⢿⠈⢁⡴⠋⠀⢀⣴⣋⡀⠀⠀⠀⠀\n" +
+        "⡇⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠒⢛⣡⣸⡏⢹⡟⠻⠏⢀⡴⠋⠀⣠⣖⠻⠿⠿⣤⡀⠀⠀⠀\n" +
+        "⡇⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⠀⠛⢡⡞⠻⠟⠁⢀⡴⠋⢀⣤⣞⣛⣻⡆⠀⠀⠉⢇⠀⠀⠀\n" +
+        "⣇⠀⠀⠀⠈⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠠⠏⠀⠀⢀⠴⠋⣀⠴⣿⠛⠛⠁⠈⠁⠀⠀⠀⠈⢧⠀⡄\n" +
+        "⠸⡄⠀⠀⠀⠀⡇⠀⠀⢰⠃⠀⠈⣇⠀⠸⣦⡀⠀⠀⢀⡔⠁⣠⠞⠁⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀\n" +
+        "⠀⠙⣄⠀⠀⠀⣿⠀⠀⢸⠒⠒⠒⠻⡀⠀⣷⠬⣉⡶⠋⣠⠞⠁⠀⠀⠀⡇⠀⠀⠀⡀⠀⢠⠀⠀⠀⠘⡇⠀\n" +
+        "⠀⠀⠈⠑⠦⠤⣽⣄⠀⢸⠤⠤⠤⠤⢷⡀⠸⣷⠋⣠⢾⡁⠀⠀⠀⠀⠀⡇⢠⠇⠀⢹⠀⢸⠃⠀⠀⣸⠃⠀\n" +
+        "⠀⠀⠀⠀⠀⠀⠀⢹⠀⢸⠀⠀⠀⠀⠀⢈⠦⣀⣙⣻⡞⠃⠀⠀⠀⢀⡼⢡⠧⠤⠤⢸⠀⣾⠤⠤⠚⠁⠀⠀\n" +
+        "⠀⠀⠀⠀⠀⠀⠀⢸⡀⠸⡄⠀⠀⠀⠀⣧⠴⠃⠉⠉⠁⠀⠀⠰⣾⡭⠔⠁⠀⠀⠀⡜⠀⡇⠀⠀⠀⠀⠀⠀\n" +
+        "⠀⠀⠀⠀⠀⠀⠀⠀⠳⢤⣼⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠄⠀⠀⠀⠀⠀⢰⣥⣴⠃⠀⠀⠀⠀⠀⠀\n" +
+        "⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠤⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n";
+        return bonk;
+    }
+
+
+
 }
 
     

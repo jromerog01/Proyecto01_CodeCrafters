@@ -139,4 +139,15 @@ public class Portugues implements IdiomaCheemsMart {
     public String nCuentaIncorrecto() {
         return "Número de conta incorreto";
     }
+
+    @Override
+    public String intentosRestantes() {
+        return "Número de conta incorreto. Você só tem 3 tentativas";
+    }
+
+    @Override
+    public String sesionCerrada() {
+        return "Você atingiu o limite de tentativas. Fechando o programa...";
+    }
+
 }

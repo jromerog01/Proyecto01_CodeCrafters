@@ -103,6 +103,13 @@ public interface IdiomaCheemsMart {
      * @return Mensaje que el numero de cuentas es incorrecto al registrado
      */
     public String nCuentaIncorrecto();
+
+    // Mensaje que muestra cuántos intentos quedan
+public String intentosRestantes();
+
+// Mensaje que muestra que la sesión se ha cerrado tras los intentos fallidos
+public String sesionCerrada();
+
     
 }
 
