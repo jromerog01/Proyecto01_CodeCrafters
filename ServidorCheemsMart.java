@@ -27,7 +27,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         this.paisUsuario = null;
         this.paisMenu = null;
         this.carrito = new Carrito();
-        this.catalogo = new Catalogo();
+        this.catalogo = Catalogo.getInstance();
         this.lista = new ListaUsuarios();
         lista.registrar(new Usuario("paco", "1234", "Francisco", "1234567890", "Tapo", 123, "Mexico", 1));
         lista.registrar(new Usuario("jguns", "1234", "Jose", "1234567890", "Tapo", 123, "USA", 1));
@@ -53,7 +53,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 // else {
                 //     this.menuIdioma = new Portugues();
                 // }
-                return this.menuIdioma.saludo() + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario) + "\n" + cheems);
+                return this.menuIdioma.saludo() + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario)+ "\n"+ bienvenido + "\n" + a + "\n" +cheemMart+ "\n\n" + cheems);
             }
         }
         return "Usuario y/o Contrasena incorrecto";
@@ -189,6 +189,36 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 "⠀⠀⠀⠀⠿⢴⡷⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⡄⢀⡀⢸⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" + //
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣇⣸⡥⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
+
+                String bienvenido = 
+                "______ _____ _____ _   _ _   _ _____ _   _ ___________ _____" + "\n" +
+                "| ___ \\_   _|  ___| \\ | | | | |  ___| \\ | |_   _|  _  \\  _  |" + "\n" + 
+                "| |_/ / | | | |__ |  \\| | | | | |__ |  \\| | | | | | | | | | |" + "\n" +
+                "| ___ \\ | | |  __|| . ` | | | |  __|| . ` | | | | | | | | | |" + "\n" +
+                " | |_/ /_| |_| |___| |\\ \\ \\_/ / |___| |\\  |_| |_| |/ /\\ \\_/ /" + "\n" +
+                "\\____/ \\___/\\____/\\_| \\_/\\___/\\____/\\_| \\_/\\___/|___/  \\___/ ";
+
+                String a = 
+                 "  ___ " + "\n" + 
+               " / _ \\ " + "\n" +
+               "/ /_\\ \\" + "\n" +
+               "|  _  |" + "\n" +
+               "| | | |" + "\n" +
+               "\\_| |_/";
+               
+               String cheemMart = 
+                " _____  _   _  _____ ________  ___ ________  ___  ___  ______ _____ " + "\n" +
+               "/  __ \\| | | ||  ___|  ___|  \\/  |/  ___|  \\/  | / _ \\ | ___ \\_   _| " + "\n" + 
+               "| /  \\/| |_| || |__ | |__ | .  . |\\ `--.| .  . |/ /_\\ \\| |_/ / | | " + "\n" +  
+               "| |    |  _  ||  __||  __|| |\\/| | `--. \\ |\\/| ||  _  ||    /  | | " + "\n" +  
+               "| \\__/\\| | | || |___| |___| |  | |/\\__/ / |  | || | | || |\\ \\  | | " + "\n" +  
+                "\\____/\\_| |_/\\____/\\____/\\_|  |_/\\____/\\_|  |_/\\_| |_/\\_| \\_\\| \\_/ ";
+                                                                                   
+                                                                                   
+                                
+                                                                                            
+                      
+                      
 
     
 }

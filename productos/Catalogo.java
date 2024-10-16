@@ -8,28 +8,28 @@ import productos.departamentos.ProductoFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class Catalogo {
 
     public ArrayList<Producto> productos;
+    private static Catalogo uniqueInstance;
 
     /**
      * Metodo constructor de catalogo
      */
-    public Catalogo() {
+    private Catalogo() {
         productos = new ArrayList<>();
     }
 
-    /**
-     * Metodo que devuelve el iterador para recorrer el catalogo.
-     * @return El iterador para recorrer el catalogo
-     */
-    public Iterator<Producto> iterator(){
-        return productos.iterator();
+    public static Catalogo getInstance(){
+        if (uniqueInstance == null){
+            uniqueInstance = new Catalogo();
+        }
+        return uniqueInstance;
     }
+
 
     /**
      * Metodo que crea un catalogo mostrando los precios segun la region
@@ -108,9 +108,7 @@ public class Catalogo {
         Map<String, List<Producto>> productosPorDepartamento = new HashMap<>();
 
         // Agrupar los productos por su departamento
-        Iterator<Producto> iteradorP = this.iterator();
-        while (iteradorP.hasNext()) {
-            Producto producto = iteradorP.next();
+        for (Producto producto : productos) {
             String departamento = producto.getDepartamento();
             productosPorDepartamento
                     .computeIfAbsent(departamento, k -> new ArrayList<>())
@@ -136,14 +134,11 @@ public class Catalogo {
      * @param codigoBarras El codigo de barras del producto que se desea buscar
      */
     public Producto buscarProductoPorCodigo(int codigoBarras) {
-        Iterator<Producto> iterador = this.iterator();
-        while (iterador.hasNext()) {
-            Producto producto = iterador.next();
+        for (Producto producto : productos) {
             if (producto.getCodigoBarras() == codigoBarras) {
                 return producto;
             }
         }
         return null;
     }
-    
 }
