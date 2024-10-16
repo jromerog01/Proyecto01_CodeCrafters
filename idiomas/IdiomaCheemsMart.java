@@ -64,8 +64,6 @@ public interface IdiomaCheemsMart {
 
    /**
     * Metodo que regres el mensaje de Finalizar compra
-    * @param total Valor acumulado del carrito
-    * @param carrito El carrito de compra 
     * @return Mensaje de despedida correspondiente al idioma 
     */
     public String mensajeFinalizarCompra();

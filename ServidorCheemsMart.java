@@ -2,11 +2,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
-
-
 import idiomas.*;
 import productos.*;
-
 import usuario.ListaUsuarios;
 import usuario.Usuario;
 
@@ -20,6 +17,10 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     Carrito carrito;
     IdiomaCheemsMart menuIdioma; 
 
+    /**
+     * Metodo constructor del ServidorCheemsMart
+     * @throws RemoteException 
+     */
     public ServidorCheemsMart() throws RemoteException{
         this.paisDescuento = crearDescuento();
         this.paisUsuario = null;
@@ -32,7 +33,12 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         lista.registrar(new Usuario("neyjr", "10pele", "NeymarJR", "55121212322", "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brasil", 1010, "Brasil", 3));
     }
 
-
+    /**
+     * Metodo que valida el acceso de un cliente usando su usuario y contrasena
+     * @param usuario El usuario del cliente
+     * @param contrasena La contrasena del cliente
+     * @return Una cadena dando la bienvenida en caso de que si este registrado
+     */
     public String acceder(String usuario, String contrasena){
         Iterator<Usuario> iterador = lista.iterator();
         while(iterador.hasNext()) {
@@ -60,9 +66,12 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         return "";
     }
 
+    /**
+     * Metodo que decide de manera azarosa el pais que tiene descuento
+     * @return El nombre del pais que reciba un descuento
+     */
     private String crearDescuento(){
         int r = (int) (Math.random()*3+1);
-        System.out.println(r);
         switch (r) {
             case 1:
                 return "Mexico";
@@ -75,20 +84,36 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         }
     }   
 
+    /**
+     * Metodo que devuelve el menu de entrada
+     * @return El menu de acciones de entrada
+     */
     public String miniMenu(){
         return menuIdioma.menuInicio();
     }
 
+    /**
+     * Metodo que devuelve catalogo
+     * @return La cadena que contiene el catalogo
+     */
     public String verCatalogo(){
         this.catalogo.crearCatalogo(this.paisUsuario);
         return this.catalogo.getCatalogo();
     }
 
-    
+    /**
+     * Metodo que regresa el mensaje instruccion compra 
+     * @return Mensaje de la instruccion de compra correspondiente al idioma
+     */
     public String mensajeCarrito1(){
         return this.menuIdioma.mensajeCompra(); 
     }
 
+    /**
+     * Metodo que agrega al carrito los productos que se desean comprar
+     * @param codigoBarras El codigo de barras del producto que se desea comprar
+     * @return Mensaje que ya se agrego o hay un error segun el caso 
+     */
     public String agregarCarrito(int codigoBarras) {
         Producto productoSeleccionado = catalogo.buscarProductoPorCodigo(codigoBarras);
         
@@ -100,10 +125,19 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         }
     }
 
+    /**
+     * Metodo que muestra el carrito
+     * @return Lo que se va a comprar en el carrito
+     */
     public String verCarrito(){
         return carrito.imprimirCarrito() + "\nTOTAL: $" + carrito.calcularTotal() +"\n";
     }
 
+    /**
+     * Metodo que valida si el usuario ingreso su numero de cuenta bacaria correcto
+     * @param nCuenta El numero de cuenta ingresado por el usuario
+     * @return True si es el numero de cuenta registrado, False de lo contrario
+     */
     public boolean autentificacion(int nCuenta){
         if(nCuenta == this.usuario.getCuentaBancaria()){
             return true;
@@ -112,18 +146,26 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         }
     }
 
+    /**
+     * Metodo que realiza el cobro al cliente
+     * @return El ticket en caso de tener la capacidad de comprar, mensaje de error de no alcanzarle 
+     */
     public String realizarCobro(){
         if(this.usuario.getDinero() < carrito.calcularTotal()){
             carrito = new Carrito();
-            // Falta template
             return this.menuIdioma.mensajeErrorPresupuesto();
         }
         this.usuario.cobrar(carrito.calcularTotal());
         String ticket = verCarrito();
         carrito = new Carrito();
-        return menuMensajes(2) + "\n" + ticket;
+        return menuMensajes(2) + "\n" + ticket + "\n" + menuMensajes(3);
     }
 
+    /**
+     * Menu que permite acceder a mensajes predefinidos del lado del cliente
+     * @param m El numero del mensaje que deseamos acceder
+     * @return El mensaje solicitado
+     */
     public String menuMensajes(int m){
         String mensaje = "";
         switch (m) {
