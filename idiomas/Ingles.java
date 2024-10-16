@@ -71,4 +71,22 @@ public class Ingles implements IdiomaCheemsMart {
     public String mensajeErrorPresupuesto(){
         return "The cart exceeds your budget, the purchase is cancelled";
     }
+
+
+    @Override
+    public String opcionPagarOSalir() {
+        return "\nEnter the barcode of the product you want to add (or enter 0 to return to the menu or 1 to make the payment): ";
+    }
+
+
+    @Override
+    public String solicitarNCuenta() {
+        return "Enter your account number";
+    }
+
+
+    @Override
+    public String nCuentaIncorrecto() {
+        return "Incorrect accoun number";
+    }
 }

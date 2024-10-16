@@ -1,8 +1,11 @@
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class EntradaUsuario  {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
 
         Scanner scanner = new Scanner(System.in);
         while(true){
@@ -68,7 +71,7 @@ public class EntradaUsuario  {
             String respuesta = cheems.acceder(usuario, contrasena);
             System.out.println(respuesta);
             // Verificar si el acceso fue exitoso
-            return respuesta.contains("Bienvenido");
+            return (respuesta.contains("Bienvenido") || respuesta.contains("Welcome") || respuesta.contains("Bem-vindo"));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -131,15 +134,22 @@ public class EntradaUsuario  {
     /**
      * Metodo que realiza una compra
      * @param scanner El scanner para que el usuario pueda ingresar informacion
+     * @throws RemoteException 
+     * @throws NotBoundException 
+     * @throws MalformedURLException 
      */
-    public static void realizarCompra(Scanner scanner) {
+    public static void realizarCompra(Scanner scanner) throws RemoteException, MalformedURLException, NotBoundException {
         verCatalogo(); // Mostrar el catálogo
+        String mensajeError = "";
 
         while (true) {
             try {
-            // Pedir al usuario el código de barras del producto
-            System.out.print("\nIngresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú o 1 para realizar el cobro): ");
-            int codigoBarras = Integer.parseInt(scanner.nextLine());
+                CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
+                // Pedir al usuario el código de barras del producto
+                String mensaje = cheems.menuMensajes(9);
+                mensajeError = cheems.menuMensajes(5);
+                System.out.print(mensaje);
+                int codigoBarras = Integer.parseInt(scanner.nextLine());
 
             if (codigoBarras == 0) {
                 // Salir del ciclo si el usuario ingresa 0
@@ -147,18 +157,14 @@ public class EntradaUsuario  {
             }
 
             if(codigoBarras == 1){
-                try {
-                    CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
-                    System.out.println("Ingrese su numero de Cuenta");
-                    int nCuenta = Integer.parseInt(scanner.nextLine());
-                    if(cheems.autentificacion(nCuenta)){
-                        realizarCobro();
-                    }else{
-                        System.out.println("N.cuenta incorrecto");
-                    }
-                    
-                } catch (Exception e) {
-                    System.out.println("Error: Ingresa un numero valido1");
+                mensaje = cheems.menuMensajes(10);
+                System.out.println(mensaje);
+                int nCuenta = Integer.parseInt(scanner.nextLine());
+                if(cheems.autentificacion(nCuenta)){
+                    realizarCobro();
+                }else{
+                    mensaje = cheems.menuMensajes(11);
+                    System.out.println(mensaje);
                 }
                 break;
             }
@@ -168,7 +174,7 @@ public class EntradaUsuario  {
             // Agregar producto al carrito
             agregarCarrito(codigoBarras);
             } catch (NumberFormatException e) {
-            System.out.println("Error: Ingresa un número válido.");
+                System.out.println(mensajeError);
 
             
             }

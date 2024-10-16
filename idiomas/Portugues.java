@@ -71,4 +71,22 @@ public class Portugues implements IdiomaCheemsMart {
     public String mensajeErrorPresupuesto(){
         return "O carrinho excede seu orçamento, a compra foi cancelada";
     }
+
+
+    @Override
+    public String opcionPagarOSalir() {
+        return "\nInsira o código de barras do produto que deseja adicionar (ou digite 0 para retornar ao menu ou 1 para efetuar o pagamento): ";
+    }
+
+
+    @Override
+    public String solicitarNCuenta() {
+        return "Digite o número da sua conta";
+    }
+
+
+    @Override
+    public String nCuentaIncorrecto() {
+        return "Número de conta incorreto";
+    }
 }

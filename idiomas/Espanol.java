@@ -70,4 +70,19 @@ public class Espanol implements IdiomaCheemsMart {
     public String mensajeErrorPresupuesto(){
         return"El carrito excede tu presupuesto se cancela la compra";
     }
+
+    @Override
+    public String opcionPagarOSalir(){
+        return "\nIngresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú o 1 para realizar el cobro): ";
+    }
+
+    @Override
+    public String solicitarNCuenta() {
+        return "Ingrese su numero de Cuenta";
+    }
+
+    @Override
+    public String nCuentaIncorrecto() {
+        return "Numero de cuenta incorrecto";
+    }
 }

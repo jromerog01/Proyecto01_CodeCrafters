@@ -27,8 +27,9 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         this.carrito = new Carrito();
         this.catalogo = Catalogo.getInstance();
         this.lista = new ListaUsuarios();
-        lista.registrar(new Usuario("paco", "1234", "Francisco", "1234567890", "Tapo", 123, "Mexico", 1));
-        lista.registrar(new Usuario("jguns", "1234", "Jose", "1234567890", "Tapo", 123, "USA", 1));
+        lista.registrar(new Usuario("paco", "1234", "Francisco", "5545341234", "Calle Ignacio Zaragoza 56, Centro de Azcapotzalco, Azcapotzalco, 02000 Ciudad de México, CDMX", 123, "Mexico", 1));
+        lista.registrar(new Usuario("jguns", "5678", "Jose", "911", "1600 Pennsylvania Avenue NW, Washington, DC 20500, Estados Unidos", 911, "USA", 2));
+        lista.registrar(new Usuario("neyjr", "10pele", "NeymarJR", "55121212322", "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brasil", 1010, "Brasil", 3));
     }
 
 
@@ -56,7 +57,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 return this.menuIdioma.saludo() + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario)+ "\n"+ bienvenido + "\n" + a + "\n" +cheemMart+ "\n\n" + cheems);
             }
         }
-        return "Usuario y/o Contrasena incorrecto";
+        return "";
     }
 
     private String crearDescuento(){
@@ -85,7 +86,6 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
 
     
     public String mensajeCarrito1(){
-        // Falta String template
         return this.menuIdioma.mensajeCompra(); 
     }
 
@@ -151,6 +151,14 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
             case 8:
                 mensaje = menuIdioma.despedida();
                 break;
+            case 9:
+                mensaje = menuIdioma.opcionPagarOSalir();
+                break;
+            case 10:
+                mensaje = menuIdioma.solicitarNCuenta();
+                break;
+            case 11:
+                mensaje = menuIdioma.nCuentaIncorrecto(); 
         }
         return mensaje;
     }
