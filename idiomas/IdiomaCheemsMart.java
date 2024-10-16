@@ -1,6 +1,6 @@
 package idiomas;
 
-public abstract class IdiomaCheemsMart {
+public interface IdiomaCheemsMart {
 
     //Bienvenido -nombre-
 
@@ -9,6 +9,14 @@ public abstract class IdiomaCheemsMart {
     * @return Mensaje de saludo correspondiente al idioma 
     */
     public abstract String saludo();
+
+    //mensaje final
+
+   /**
+    * Metodo que regresa el mensaje de Despedida
+    * @return Mensaje de despedida correspondiente al idioma 
+    */
+    public abstract String despedida();
 
     
     // - Gracias por visitar CheemsMart-
@@ -68,16 +76,19 @@ public abstract class IdiomaCheemsMart {
     */
     public abstract String mensajeInvalido();
 
-
-
-    //mensaje final
-
-   /**
-    * Metodo que regresa el mensaje de Despedida
-    * @return Mensaje de despedida correspondiente al idioma 
+    /**
+    * Metodo que regres el mensaje del producto agregado
+    * @return Mensaje del producto agregado correspondiente al idioma 
     */
-    public abstract String despedida();
+    public abstract String mensajeProductoAgregado();
 
+    /**
+    * Metodo que regres el mensaje del error cuando el presupuesto no alcanza 
+    * @return Mensaje del error del presupuesto correspondiente al idioma 
+    */
+    public abstract String mensajeErrorPresupuesto();
+
+    
 }
 
 

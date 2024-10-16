@@ -3,10 +3,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
 
-import idiomas.Espanol;
-import idiomas.IdiomaCheemsMart;
-// import idiomas.Ingles;
-// import idiomas.Portugues;
+
+import idiomas.*;
 import productos.*;
 
 import usuario.ListaUsuarios;
@@ -44,15 +42,17 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 if(this.usuario.getPais().equals(this.paisDescuento)){
                     this.paisUsuario = this.usuario.getPais();
                 }
+
                 if (this.paisMenu.equals("Mexico")) {
                     this.menuIdioma = new Espanol();
                 }
-                // if(this.paisMenu.equals("USA")) {
-                //     this.menuIdioma = new Ingles();                  
-                // }
-                // else {
-                //     this.menuIdioma = new Portugues();
-                // }
+                else if(this.paisMenu.equals("USA")) {
+                    this.menuIdioma = new Ingles();                  
+                }
+                else {
+                    this.menuIdioma = new Portugues();
+                }
+                
                 return this.menuIdioma.saludo() + this.usuario.getNombre() + "\n" + this.usuario.recibirNotificacion(lista.crearNotificacion(this.paisUsuario)+ "\n"+ bienvenido + "\n" + a + "\n" +cheemMart+ "\n\n" + cheems);
             }
         }
@@ -86,7 +86,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     
     public String mensajeCarrito1(){
         // Falta String template
-        return "\nIngresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú): "; 
+        return this.menuIdioma.mensajeCompra(); 
     }
 
     public String agregarCarrito(int codigoBarras) {
@@ -94,9 +94,9 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         
         if (productoSeleccionado != null) {
             carrito.agregarProducto(productoSeleccionado);
-            return "Producto agregado al carrito: " + productoSeleccionado.getNombre();
+            return this.menuIdioma.mensajeProductoAgregado() + productoSeleccionado.getNombre();
         } else {
-            return "Producto no encontrado. Intenta nuevamente.";
+            return this.menuIdioma.mensajeError();
         }
     }
 
@@ -116,7 +116,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         if(this.usuario.getDinero() < carrito.calcularTotal()){
             carrito = new Carrito();
             // Falta template
-            return "El carrito excede tu presupuesto se cancela la compra";
+            return this.menuIdioma.mensajeErrorPresupuesto();
         }
         this.usuario.cobrar(carrito.calcularTotal());
         String ticket = verCarrito();

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class Espanol extends IdiomaCheemsMart {
+public class Espanol implements IdiomaCheemsMart {
 
     @Override
     public String saludo() {
@@ -41,7 +41,7 @@ public class Espanol extends IdiomaCheemsMart {
 
     @Override
     public String mensajeCompra() {
-        return "Ingresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú):";
+        return "\n Ingresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú):";
     }
 
     @Override
@@ -59,5 +59,15 @@ public class Espanol extends IdiomaCheemsMart {
     @Override
     public String mensajeInvalido(){
         return"Opcion invalida. Intente de nuevo";
+    }
+
+    @Override
+    public String mensajeProductoAgregado(){
+        return"Producto agregado al carrito";
+    }
+
+    @Override
+    public String mensajeErrorPresupuesto(){
+        return"El carrito excede tu presupuesto se cancela la compra";
     }
 }
