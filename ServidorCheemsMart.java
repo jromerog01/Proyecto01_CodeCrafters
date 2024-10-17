@@ -48,6 +48,8 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
                 this.paisMenu = this.usuario.getPais();
                 if(this.usuario.getPais().equals(this.paisDescuento)){
                     this.paisUsuario = this.usuario.getPais();
+                }else{
+                    this.paisUsuario = null;
                 }
 
                 if (this.paisMenu.equals("Mexico")) {
@@ -72,6 +74,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
      */
     private String crearDescuento(){
         int r = (int) (Math.random()*3+1);
+        System.out.println(r);
         switch (r) {
             case 1:
                 return "Mexico";
