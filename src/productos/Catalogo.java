@@ -43,7 +43,7 @@ public class Catalogo {
         ProductoFactory fabricaAlimentos = new DeptoAlimentos();
         ProductoFactory fabricaElectrodomesticos = new DeptoElectrodomesticos();
 
-        // Crear productos usando las fábricas
+        // Crear src.productos usando las fábricas
         Producto camaraDigital = fabricaElectronica.crearProducto("CamaraDigital");
         Producto homeTheater = fabricaElectronica.crearProducto("HomeTheater");
         Producto iPhone18ProPlusMax = fabricaElectronica.crearProducto("IPhone18ProPlusMax");
@@ -99,15 +99,15 @@ public class Catalogo {
     }
 
     /**
-     * Método para agrupar productos por departamento y luego imprimirlos
+     * Método para agrupar src.productos por departamento y luego imprimirlos
      */
     public String getCatalogo() {
         StringBuilder sb = new StringBuilder();
 
-        // Crear un Map para agrupar los productos por departamento
+        // Crear un Map para agrupar los src.productos por departamento
         Map<String, List<Producto>> productosPorDepartamento = new HashMap<>();
 
-        // Agrupar los productos por su departamento
+        // Agrupar los src.productos por su departamento
         for (Producto producto : productos) {
             String departamento = producto.getDepartamento();
             productosPorDepartamento
@@ -115,7 +115,7 @@ public class Catalogo {
                     .add(producto);
         }
 
-        // Construir el string de los productos agrupados por departamento
+        // Construir el string de los src.productos agrupados por departamento
         for (String departamento : productosPorDepartamento.keySet()) {
             sb.append(departamento).append("\n"); // Añadir el nombre del departamento
             for (Producto producto : productosPorDepartamento.get(departamento)) {

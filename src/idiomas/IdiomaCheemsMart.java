@@ -87,13 +87,13 @@ public interface IdiomaCheemsMart {
     public String mensajeErrorPresupuesto();
 
     /**
-     * Metodo que pide al usuario que decida entre comprar o salir del carrito
-     * @return Mensaje que solicita al usuario que ingrese una opcion para comprar;
+     * Metodo que pide al src.usuario que decida entre comprar o salir del carrito
+     * @return Mensaje que solicita al src.usuario que ingrese una opcion para comprar;
      */
     public String opcionPagarOSalir();
 
     /**
-     * Metodo que regresa una cadena solicitando al usuario que ingrese su numro de cuenta
+     * Metodo que regresa una cadena solicitando al src.usuario que ingrese su numro de cuenta
      * @return Mensaje que solicita el numero de cuenta
      */
     public String solicitarNCuenta();

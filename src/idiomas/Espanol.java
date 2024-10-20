@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class Ingles implements IdiomaCheemsMart {
+public class Espanol implements IdiomaCheemsMart {
 
     /**
     * Metodo que regresa el mensaje de Bienvenida
@@ -12,7 +12,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String saludo() {
-        return "\nWelcome to Cheems Mart\n";
+        return "\nBienvenido a Cheems Mart\n";
     }
 
     /**
@@ -21,7 +21,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String despedida() {
-        return "\n See you later...";
+        return "Hasta luego... ";
     }
 
     /**
@@ -30,8 +30,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override 
     public String agradecimiento(){
-        return "Thank you for visiting Cheems Mart \n" + 
-                        "Please come back soon...";
+        return "Gracias por su visita a Cheems Mart \n Vuelva pronto...";
     }
 
     /**
@@ -43,7 +42,7 @@ public class Ingles implements IdiomaCheemsMart {
         LocalDate semanaSiguiente = LocalDate.now().plusDays(7);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechaEntrega = semanaSiguiente.format(formato);
-        return "The delivery date is scheduled for the day " + fechaEntrega;
+        return "La fecha de entrega esta programada para el dia " + fechaEntrega;
     }
 
     /**
@@ -52,10 +51,10 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String menuInicio(){
-        return "CheemsMart Menu: \n" +
-                    "1. View catalog \n" +
-                    "2. Make a purchase\n" +
-                    "3. Close Session\n";
+        return "Menu CheemsMart: \n" +
+                  "1. Ver catálogo \n" +
+                  "2. Realizar una compra\n" +
+                  "3. Cerrar Sesion\n";
     }
 
     /**
@@ -64,7 +63,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeCompra() {
-        return "\n Enter the barcode of the product you want to add (or enter 0 to return to the menu):";
+        return "\n Ingresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú):";
     }
 
     /**
@@ -73,7 +72,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeError(){
-        return "Product not found. Please try again.";
+        return "Producto no encontrado. Intenta nuevamente.";
     }
 
     /**
@@ -82,7 +81,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeFinalizarCompra(){
-        String mensaje = "Thank you for shopping at Cheems Mart";
+        String mensaje = "Gracias por comprar en Cheems Mart";
         return mensaje.toString();
     }
 
@@ -92,7 +91,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeInvalido(){
-        return "Invalid option. Please try again.";
+        return"Opcion invalida. Intente de nuevo";
     }
 
     /**
@@ -101,7 +100,7 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeProductoAgregado(){
-        return "Product added to cart";
+        return"Producto agregado al carrito";
     }
 
     /**
@@ -110,25 +109,25 @@ public class Ingles implements IdiomaCheemsMart {
     */
     @Override
     public String mensajeErrorPresupuesto(){
-        return "The cart exceeds your budget, the purchase is cancelled";
+        return"El carrito excede tu presupuesto se cancela la compra";
     }
 
     /**
-     * Metodo que pide al usuario que decida entre comprar o salir del carrito
-     * @return Mensaje que solicita al usuario que ingrese una opcion para comprar;
+     * Metodo que pide al src.usuario que decida entre comprar o salir del carrito
+     * @return Mensaje que solicita al src.usuario que ingrese una opcion para comprar;
      */
     @Override
-    public String opcionPagarOSalir() {
-        return "\nEnter the barcode of the product you want to add (or enter 0 to return to the menu or 1 to make the payment): ";
+    public String opcionPagarOSalir(){
+        return "\nIngresa el código de barras del producto que deseas agregar (o ingresa 0 para regresar al menú o 1 para realizar el cobro): ";
     }
 
     /**
-     * Metodo que regresa una cadena solicitando al usuario que ingrese su numro de cuenta
+     * Metodo que regresa una cadena solicitando al src.usuario que ingrese su numro de cuenta
      * @return Mensaje que solicita el numero de cuenta
      */
     @Override
     public String solicitarNCuenta() {
-        return "Enter your account number";
+        return "Ingrese su numero de Cuenta";
     }
 
     /**
@@ -137,17 +136,17 @@ public class Ingles implements IdiomaCheemsMart {
      */
     @Override
     public String nCuentaIncorrecto() {
-        return "Incorrect accoun number";
+        return "Numero de cuenta incorrecto";
     }
 
     @Override
     public String intentosRestantes() {
-        return "Incorrect account number. You only have 3 attempts";
+        return "Número de cuenta incorrecto. Solo tienes 3 intentos";
     }
 
     @Override
     public String sesionCerrada() {
-        return "You have reached the limit of attempts. Closing the program...";
+        return "Haz alcanzado el limite de intentos. Cerrando el programa...";
     }
 
 }

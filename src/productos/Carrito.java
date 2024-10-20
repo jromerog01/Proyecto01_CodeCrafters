@@ -22,11 +22,11 @@ public class Carrito {
     }
 
     /**
-     * Metodo que imprime todos los productos agregados al carrito
+     * Metodo que imprime todos los src.productos agregados al carrito
      */
     public String imprimirCarrito() {
         StringBuilder ticket = new StringBuilder();
-        ticket.append("----------- TICKET DEL CARRITO -----------\n");
+        ticket.append("----------- TICKET -----------\n");
         for (Producto producto : productos) {
             ticket.append("ID: ").append(producto.getCodigoBarras())
                   .append(" ").append(producto.getNombre())

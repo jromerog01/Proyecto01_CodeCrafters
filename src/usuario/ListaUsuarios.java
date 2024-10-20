@@ -17,7 +17,7 @@ public class ListaUsuarios implements GestionUsuarios{
     /**
      * Metodo que crear la notificacion del descuento.
      * @param pais Pais que recibira el descuento.
-     * @return La notificacion que recibira el usuario.
+     * @return La notificacion que recibira el src.usuario.
      */
     public String crearNotificacion(String pais){
         if(pais == null){

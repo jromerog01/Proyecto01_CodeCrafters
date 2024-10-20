@@ -1,17 +1,15 @@
-package productos.departamentos.electrodomesticos;
+package productos.departamentos.alimentos;
 
-import productos.departamentos.electronica.DeptoElectronica;
-
-public class Waflera extends DeptoElectronica {
+public class JugoManzanaOrganico extends DeptoAlimentos {
 
     /**
-     * Metodo constructor de la Waflera
+     * Metodo constructor de Jugo de Manzana Organico
      */
-    public Waflera() {
-        this.nombre = "Waflera";
-        this.departamento = "Electrodomesticos";
-        this.precio = 609;
-        this.codigoBarras = 2927;
+    public JugoManzanaOrganico() {
+        this.nombre = "Jugo de Manzana Organico";
+        this.departamento = "Alimentos";
+        this.precio = 56;
+        this.codigoBarras = 7628;
     }
 
     /**

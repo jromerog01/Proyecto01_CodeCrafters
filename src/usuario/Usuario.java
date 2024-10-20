@@ -14,14 +14,14 @@ public class Usuario implements Notificacion{
 
     /**
      * Metodo constructor.
-     * @param usuario Nombre de usuario.
-     * @param contrasena Contrasena del usuario.
-     * @param nombre Nombre del usuario.
-     * @param telefono Telefono del usuario.
-     * @param direccion Direccion de usuario.
-     * @param cuentaBancaria Cuenta bancaria del usuario.
-     * @param pais Pais del usuario.
-     * @param id Identificador del usuario.
+     * @param usuario Nombre de src.usuario.
+     * @param contrasena Contrasena del src.usuario.
+     * @param nombre Nombre del src.usuario.
+     * @param telefono Telefono del src.usuario.
+     * @param direccion Direccion de src.usuario.
+     * @param cuentaBancaria Cuenta bancaria del src.usuario.
+     * @param pais Pais del src.usuario.
+     * @param id Identificador del src.usuario.
      */
     public Usuario(String usuario, String contrasena, String nombre, String telefono, String direccion,
                     int cuentaBancaria, String pais, int id){
@@ -38,7 +38,7 @@ public class Usuario implements Notificacion{
     }
 
     /**
-     * Metodo que devuelve el usuario.
+     * Metodo que devuelve el src.usuario.
      * @return Usuario.
      */
     public String getUsuario() {
@@ -111,7 +111,7 @@ public class Usuario implements Notificacion{
     }
 
     /**
-     * Metodo que devuelve el dinero del usuario
+     * Metodo que devuelve el dinero del src.usuario
      */
     public double getDinero(){
         return dinero;
@@ -119,7 +119,7 @@ public class Usuario implements Notificacion{
 
     /**
      * Metodo que realiza el cobro de compra
-     * @param gasto El total que va a gastar el usuario.
+     * @param gasto El total que va a gastar el src.usuario.
      */
     public void cobrar(double gasto){
         dinero = dinero - gasto;

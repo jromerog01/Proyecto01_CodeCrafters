@@ -14,7 +14,7 @@ public class EntradaUsuario  {
             String username = scanner.nextLine();
             System.out.println("Ingresa contraseña: ");
             String password = scanner.nextLine();
-            
+
             // Verificar acceso
             boolean accesoExitoso = acceder(username, password);
 
@@ -33,7 +33,7 @@ public class EntradaUsuario  {
                                 verCatalogo();
                             }
                             case 2 -> {
-                                // Realizar compra y agregar productos al carrito
+                                // Realizar compra y agregar src.productos al carrito
                                 realizarCompra(scanner);
                             }
                             case 3 -> {
@@ -60,10 +60,10 @@ public class EntradaUsuario  {
     }
 
     /**
-     * Metodo que valida si el usuario esta registrado.
-     * @param usuario Nombre de usuario.
-     * @param contrasena Contrasena que permite el acceso del usuario.
-     * @return True si el usuario esta gusrado, False de lo contrario.
+     * Metodo que valida si el src.usuario esta registrado.
+     * @param usuario Nombre de src.usuario.
+     * @param contrasena Contrasena que permite el acceso del src.usuario.
+     * @return True si el src.usuario esta gusrado, False de lo contrario.
      */
     public static boolean acceder(String usuario, String contrasena) {
         try {
@@ -105,7 +105,7 @@ public class EntradaUsuario  {
     }
 
     /**
-     * Metodo que agrega productos al carriro
+     * Metodo que agrega src.productos al carriro
      * @param codigoBarras El codigo de barras del producto que deseamos anadir al carrito.
      */
     public static void agregarCarrito(int codigoBarras) {
@@ -133,10 +133,10 @@ public class EntradaUsuario  {
 
     /**
      * Metodo que realiza una compra
-     * @param scanner El scanner para que el usuario pueda ingresar informacion
+     * @param scanner El scanner para que el src.usuario pueda ingresar informacion
      * @throws RemoteException 
      * @throws NotBoundException 
-     * @throws MalformedURLException 
+     * @throws MalformedURLException
      */
     public static void realizarCompra(Scanner scanner) throws RemoteException, MalformedURLException, NotBoundException {
         verCatalogo(); // Mostrar el catálogo
@@ -145,14 +145,14 @@ public class EntradaUsuario  {
         while (true) {
             try {
                 CheemsMartRemote cheems = (CheemsMartRemote) Naming.lookup("rmi://localhost/CheemsMartServidor");
-                // Pedir al usuario el código de barras del producto
+                // Pedir al src.usuario el código de barras del producto
                 String mensaje = cheems.menuMensajes(9);
                 mensajeError = cheems.menuMensajes(5);
                 System.out.print(mensaje);
                 int codigoBarras = Integer.parseInt(scanner.nextLine());
     
                 if (codigoBarras == 0) {
-                    // Salir del ciclo si el usuario ingresa 0
+                    // Salir del ciclo si el src.usuario ingresa 0
                     break;
                 }
     

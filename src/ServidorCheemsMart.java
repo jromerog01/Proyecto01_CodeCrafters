@@ -1,3 +1,4 @@
+
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -18,7 +19,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     IdiomaCheemsMart menuIdioma; 
 
     /**
-     * Metodo constructor del ServidorCheemsMart
+     * Metodo constructor del src.ServidorCheemsMart
      * @throws RemoteException 
      */
     public ServidorCheemsMart() throws RemoteException{
@@ -28,14 +29,15 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         this.carrito = new Carrito();
         this.catalogo = Catalogo.getInstance();
         this.lista = new ListaUsuarios();
-        lista.registrar(new Usuario("paco", "1234", "Francisco", "5545341234", "Calle Ignacio Zaragoza 56, Centro de Azcapotzalco, Azcapotzalco, 02000 Ciudad de México, CDMX", 123, "Mexico", 1));
-        lista.registrar(new Usuario("jguns", "5678", "Jose", "911", "1600 Pennsylvania Avenue NW, Washington, DC 20500, Estados Unidos", 911, "USA", 2));
-        lista.registrar(new Usuario("neyjr", "10pele", "NeymarJR", "55121212322", "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brasil", 1010, "Brasil", 3));
+
+        lista.registrar(new Usuario("rosaVic", "2468", "Rosa Victoria", "5545341234", "Calle Ignacio Zaragoza 56, Centro de Azcapotzalco, Azcapotzalco, 02000 Ciudad de México, CDMX", 456712345, "Mexico", 1));
+        lista.registrar(new Usuario("axelCas", "qwerty123", "Axel Casas", "911", "1600 Pennsylvania Avenue NW, Washington, DC 20500, Estados Unidos", 987654321, "USA", 2));
+        lista.registrar(new Usuario("alvaroRmz", "iterator", "Alvaro Ramirez", "55121212322", "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brasil", 432187654, "Brasil", 3));
     }
 
     /**
-     * Metodo que valida el acceso de un cliente usando su usuario y contrasena
-     * @param usuario El usuario del cliente
+     * Metodo que valida el acceso de un cliente usando su src.usuario y contrasena
+     * @param usuario El src.usuario del cliente
      * @param contrasena La contrasena del cliente
      * @return Una cadena dando la bienvenida en caso de que si este registrado
      */
@@ -113,7 +115,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     }
 
     /**
-     * Metodo que agrega al carrito los productos que se desean comprar
+     * Metodo que agrega al carrito los src.productos que se desean comprar
      * @param codigoBarras El codigo de barras del producto que se desea comprar
      * @return Mensaje que ya se agrego o hay un error segun el caso 
      */
@@ -122,7 +124,7 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         
         if (productoSeleccionado != null) {
             carrito.agregarProducto(productoSeleccionado);
-            return this.menuIdioma.mensajeProductoAgregado() + productoSeleccionado.getNombre();
+            return this.menuIdioma.mensajeProductoAgregado() +": "+ productoSeleccionado.getNombre();
         } else {
             return this.menuIdioma.mensajeError();
         }
@@ -137,8 +139,8 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
     }
 
     /**
-     * Metodo que valida si el usuario ingreso su numero de cuenta bacaria correcto
-     * @param nCuenta El numero de cuenta ingresado por el usuario
+     * Metodo que valida si el src.usuario ingreso su numero de cuenta bacaria correcto
+     * @param nCuenta El numero de cuenta ingresado por el src.usuario
      * @return True si es el numero de cuenta registrado, False de lo contrario
      */
     public boolean autentificacion(int nCuenta){
@@ -277,15 +279,5 @@ public class ServidorCheemsMart extends UnicastRemoteObject implements CheemsMar
         "| |    |  _  ||  __||  __|| |\\/| | `--. \\ |\\/| ||  _  ||    /  | | " + "\n" +  
         "| \\__/\\| | | || |___| |___| |  | |/\\__/ / |  | || | | || |\\ \\  | | " + "\n" +  
         "\\____/\\_| |_/\\____/\\____/\\_|  |_/\\____/\\_|  |_/\\_| |_/\\_| \\_\\| \\_/ ";
-
-
-            
-                                                                                   
-                                                                                   
-                                
-                                                                                            
-                      
-                      
-
     
 }
